@@ -1,20 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from './screens/Home';
-import Profile from './screens/Profile';
+import { AuthProvider } from "./context/AuthContext";
+import AppNav from "./navigation/AppNav";
 
 
 export default function App() {
-  const Tab = createBottomTabNavigator();
 
   return (
+    <AuthProvider>
+      <AppNav />
+    </AuthProvider>
 
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
 
   );
 }
