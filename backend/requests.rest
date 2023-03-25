@@ -1,10 +1,38 @@
+POST http://localhost:3001/users/new
+Content-Type: application/json
 
-POST http://localhost:3001/wp-json/jwt-auth/v1/token
+{
+	"username" : "dummy",
+	"password" : "12345",
+    "name" : "stupid",
+    "streak" : 0
+}
+
+###
+
+GET http://localhost:3001/users
+
+###
+
+POST http://localhost:3001/login
 Content-Type: application/json
 
 {
 	"username" : "jamesTest",
-	"password" : "12345",
-    "name" : "James",
-    "streak" : 0
+	"password" : "12345"
 }
+
+###
+
+DELETE http://localhost:3001/users/delete/641f7a0bde8ccb7bb3452eff
+
+###
+
+PUT http://localhost:3001/users/edit/641f7a93de8ccb7bb3452f09
+Content-Type: application/json
+
+{
+	"username" : "newDummy",
+	"password" : "69",
+    "name" : "evenNewerName"
+} 

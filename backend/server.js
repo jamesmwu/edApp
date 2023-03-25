@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -41,7 +42,9 @@ app.post('/login', async (req, res) => {
         user.comparePassword(req.body.password, function (err, isMatch) {
             if (err) throw err;
             if (isMatch) {
-                res.json(user);
+                // res.json(user);
+                const token = jwt.sign({ userId: user._id }, 'secret_key');
+                res.json({ token });
             } else {
                 res.json({ error: 'Incorrect password' });
             }
