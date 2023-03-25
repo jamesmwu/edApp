@@ -9,7 +9,7 @@ export default function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="TabStack" component={TabStack} />
+      {/* <Stack.Screen name="TabStack" component={TabStack} /> */}
     </Stack.Navigator>
   );
 };

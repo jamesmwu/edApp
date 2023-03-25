@@ -1,0 +1,10 @@
+
+POST http://localhost:3001/wp-json/jwt-auth/v1/token
+Content-Type: application/json
+
+{
+	"username" : "jamesTest",
+	"password" : "12345",
+    "name" : "James",
+    "streak" : 0
+}
