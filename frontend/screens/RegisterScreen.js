@@ -11,10 +11,11 @@ import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import { AuthContext } from '../context/AuthContext';
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
     const [username, setUsername] = useState(null);
+    const [name, setName] = useState(null);
     const [password, setPassword] = useState(null);
-    const { login } = useContext(AuthContext);
+    const { register } = useContext(AuthContext);
 
     return (
         <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
@@ -26,7 +27,7 @@ export default function LoginScreen({ navigation }) {
                         color: '#333',
                         marginBottom: 30,
                     }}>
-                    Login
+                    Register
                 </Text>
 
                 <InputField
@@ -54,23 +55,32 @@ export default function LoginScreen({ navigation }) {
                         />
                     }
                     inputType="password"
-                    // fieldButtonLabel={"Forgot?"}
-                    // fieldButtonFunction={() => { }}
                     value={password}
                     onChangeText={text => setPassword(text)}
                 />
+                <InputField
+                    label={'Name'}
+                    icon={
+                        <MaterialIcons
+                            name="mood"
+                            size={20}
+                            color="#666"
+                            style={{ marginRight: 10 }}
+                        />
+                    }
+                    value={name}
+                    onChangeText={text => setName(text)}
+                />
 
-                <CustomButton label={"Login"} onPress={() => { login(username, password); }} />
-
+                <CustomButton label={"Register"} onPress={() => { register(username, password, name); }} />
                 <View
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'center',
                         marginBottom: 30,
                     }}>
-                    <Text>New to the app?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ color: '#AD40AF', fontWeight: '700' }}> Register</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={{ color: '#AD40AF', fontWeight: '700' }}> Back</Text>
                     </TouchableOpacity>
                 </View>
             </View>

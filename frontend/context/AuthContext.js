@@ -10,6 +10,22 @@ export const AuthProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
 
+    function register(username, password, name) {
+        setIsLoading(true);
+        axios.post(BASE_URL + '/users/new', {
+            "username": username,
+            "password": password,
+            "name": name,
+            "streak": 0
+        }).then(res => {
+            login(username, password);
+        }).catch(e => {
+            console.log("Register Error" + e);
+        });
+
+        setIsLoading(false);
+    }
+
     function login(username, password) {
         setIsLoading(true);
         axios.post(BASE_URL + '/login', {
@@ -20,12 +36,10 @@ export const AuthProvider = ({ children }) => {
 
             setUserInfo(curUser.user);
             setUserToken(curUser.token);
-            // console.log(curUser.token);
-            // console.log(curUser.token);
 
-
-            AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-            // AsyncStorage.setItem('userToken', userToken);
+            //Make sure to user "curUser" for these, since async.
+            AsyncStorage.setItem('userInfo', JSON.stringify(curUser.user));
+            AsyncStorage.setItem('userToken', curUser.token);
 
         }).catch(e => {
             console.log("Login Error" + e);
@@ -38,6 +52,7 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(true);
         setUserToken(null);
         AsyncStorage.removeItem('userToken');
+        AsyncStorage.removeItem('userInfo');
         setIsLoading(false);
     }
 
@@ -45,7 +60,12 @@ export const AuthProvider = ({ children }) => {
         try {
             setIsLoading(true);
             let token = await AsyncStorage.getItem('userToken');
-            setUserToken(token);
+            let info = await AsyncStorage.getItem('userInfo');
+
+            if (info) {
+                setUserToken(token);
+                setUserInfo(JSON.parse(info));
+            }
 
             setIsLoading(false);
         } catch (e) {
@@ -55,18 +75,10 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         isLoggedIn();
-        // console.log(userToken);
     }, []);
 
-    //For some reason, userToken gets updated asynchronously, will not work in axios call.
-    useEffect(() => {
-        if (userToken) {
-            AsyncStorage.setItem('userToken', userToken);
-        }
-    }, [userToken]);
-
     return (
-        <AuthContext.Provider value={{ login, logout, isLoading, userToken }}>
+        <AuthContext.Provider value={{ register, login, logout, isLoading, userToken, userInfo }}>
             {children}
         </AuthContext.Provider>
     );

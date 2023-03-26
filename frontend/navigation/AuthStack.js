@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
-import TabStack from './TabStack';
+import RegisterScreen from '../screens/RegisterScreen';
 
 export default function AuthStack() {
   const Stack = createNativeStackNavigator();
@@ -9,7 +9,7 @@ export default function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
-      {/* <Stack.Screen name="TabStack" component={TabStack} /> */}
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
