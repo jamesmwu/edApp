@@ -35,7 +35,7 @@ app.get('/users', async (req, res) => {
 app.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
-        res.json({ error: "That username doesn't exist" });
+        res.status(401).json({ error: "That username doesn't exist" });
         return;
     }
     if (
@@ -44,7 +44,7 @@ app.post('/login', async (req, res) => {
             if (isMatch) {
                 // res.json(user);
                 const token = jwt.sign({ userId: user._id }, 'secret_key');
-                res.json({ token });
+                res.json({ token, user });
             } else {
                 res.json({ error: 'Incorrect password' });
             }

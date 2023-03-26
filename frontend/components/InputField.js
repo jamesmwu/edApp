@@ -5,9 +5,10 @@ export default function InputField({
     label,
     icon,
     inputType,
-    keyboardType,
     fieldButtonLabel,
     fieldButtonFunction,
+    value,
+    onChangeText
 }) {
     return (
         <View
@@ -22,16 +23,22 @@ export default function InputField({
             {inputType === 'password' ? (
                 <TextInput
                     placeholder={label}
-                    keyboardType={keyboardType}
                     style={{ flex: 1, paddingVertical: 0 }}
                     secureTextEntry={true}
+                    value={value}
+                    onChangeText={onChangeText}
+                    autoCapitalize='none'
+                    autoCorrect={false}
                 />
             ) : (
                 <TextInput
                     placeholder={label}
-                    keyboardType={keyboardType}
                     style={{ flex: 1, paddingVertical: 0 }}
                     secureTextEntry={false}
+                    value={value}
+                    onChangeText={onChangeText}
+                    autoCapitalize='none'
+                    autoCorrect={false}
                 />
             )}
             <TouchableOpacity onPress={fieldButtonFunction}>

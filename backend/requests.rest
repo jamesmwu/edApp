@@ -23,6 +23,16 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+	"username" : null,
+	"password" : null
+}
+
+
+###
 
 DELETE http://localhost:3001/users/delete/641f7a0bde8ccb7bb3452eff
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     SafeAreaView,
     View,
@@ -12,6 +12,9 @@ import CustomButton from '../components/CustomButton';
 import { AuthContext } from '../context/AuthContext';
 
 export default function LoginScreen({ navigation }) {
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [name, setName] = useState("Bob");
     const { login } = useContext(AuthContext);
 
     return (
@@ -37,7 +40,8 @@ export default function LoginScreen({ navigation }) {
                             style={{ marginRight: 5 }}
                         />
                     }
-                    keyboardType="email-address"
+                    value={username}
+                    onChangeText={text => setUsername(text)}
                 />
 
                 <InputField
@@ -53,9 +57,11 @@ export default function LoginScreen({ navigation }) {
                     inputType="password"
                     fieldButtonLabel={"Forgot?"}
                     fieldButtonFunction={() => { }}
+                    value={password}
+                    onChangeText={text => setPassword(text)}
                 />
 
-                <CustomButton label={"Login"} onPress={() => { login(); }} />
+                <CustomButton label={"Login"} onPress={() => { login(username, password); }} />
 
                 <View
                     style={{
