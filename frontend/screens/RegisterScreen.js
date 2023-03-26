@@ -4,6 +4,7 @@ import {
     View,
     Text,
     TouchableOpacity,
+    StyleSheet
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,15 +19,10 @@ export default function RegisterScreen({ navigation }) {
     const { register } = useContext(AuthContext);
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
+        <SafeAreaView style={styles.safeArea}>
             <View style={{ paddingHorizontal: 25 }}>
                 <Text
-                    style={{
-                        fontSize: 28,
-                        fontWeight: '500',
-                        color: '#333',
-                        marginBottom: 30,
-                    }}>
+                    style={styles.headerText}>
                     Register
                 </Text>
 
@@ -80,7 +76,7 @@ export default function RegisterScreen({ navigation }) {
                         marginBottom: 30,
                     }}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={{ color: '#AD40AF', fontWeight: '700' }}> Back</Text>
+                        <Text style={styles.emphasisText}> Back</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -88,3 +84,16 @@ export default function RegisterScreen({ navigation }) {
     );
 };
 
+const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    headerText: {
+        fontSize: 28,
+        fontWeight: '500',
+        color: '#333',
+        marginBottom: 30,
+    },
+    emphasisText: { color: '#AD40AF', fontWeight: '700' }
+});
