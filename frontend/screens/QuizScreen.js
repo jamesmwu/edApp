@@ -2,22 +2,35 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Modal, Animated } from 'react-native';
 import { COLORS, SIZES } from '../styles/global';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import RenderQuestion from '../components/RenderQuestion';
+import RenderProgressBar from '../components/RenderProgressBar';
+import RenderMCQ from '../components/RenderMCQ';
+import QuizNextButton from '../components/QuizNextButton';
 
 
 export default function QuizScreen({ navigation }) {
 
     const allQuestions = [
+        // {
+        //     type: "Match",
+        //     question: "ooga?",
+        //     options: ["booga", "cooga", "dooga", "eooga"],
+        //     correct_option: "booga"
+        // },
         {
+            type: "MCQ",
             question: "What’s the biggest planet in our solar system?",
             options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
             correct_option: "Jupiter"
         },
         {
+            type: "MCQ",
             question: "What attraction in India is one of the famus in the world?",
             options: ["Chand Minar", "Taj Mahal", "Stadium"],
             correct_option: "Taj Mahal"
         },
         {
+            type: "MCQ",
             question: "What land animal can open its mouth the widest?",
             options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
             correct_option: "Hippo"
@@ -90,147 +103,29 @@ export default function QuizScreen({ navigation }) {
         navigation.navigate('Home');
     };
 
-
-
-    const renderQuestion = () => {
-        return (
-            <View style={{
-                marginVertical: 40
-            }}>
-                {/* Question Counter */}
-                <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'flex-end'
-                }}>
-                    <Text style={{
-                        color: COLORS.white, fontSize: 18, opacity: 0.6, marginRight: 2, fontFamily: "DM-Sans"
-                    }}>{currentQuestionIndex + 1}</Text>
-                    <Text style={{
-                        color: COLORS.white, fontSize: 18, opacity: 0.6, fontFamily: "DM-Sans"
-                    }}> / {allQuestions.length}</Text>
-                </View>
-
-                {/* Question */}
-                <Text style={{
-                    color: COLORS.white,
-                    fontSize: 30,
-                    fontFamily: "DM-Sans"
-                }}>{allQuestions[currentQuestionIndex]?.question}</Text>
-            </View>
-        );
+    const renderMatch = () => {
+        return (<Text>Hi</Text>);
     };
+
     const renderOptions = () => {
-        return (
-            <View>
-                {
-                    allQuestions[currentQuestionIndex]?.options.map(option => (
-                        <TouchableOpacity
-                            onPress={() => validateAnswer(option)}
-                            disabled={isOptionsDisabled}
-                            key={option}
-                            style={{
-                                borderWidth: 3,
-                                borderColor: option == correctOption
-                                    ? COLORS.success
-                                    : option == currentOptionSelected
-                                        ? COLORS.error
-                                        : COLORS.gray,
-                                backgroundColor: option == correctOption
-                                    ? COLORS.successAccent
-                                    : option == currentOptionSelected
-                                        ? COLORS.errorAccent
-                                        : COLORS.white,
-                                height: 60, borderRadius: 20,
-                                flexDirection: 'row',
-                                alignItems: 'center', justifyContent: 'space-between',
-                                paddingHorizontal: 20,
-                                marginVertical: 10
-                            }}
-                        >
-                            <Text style={{
-                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans"
-                            }}>{option}</Text>
-
-                            {/* Show Check Or Cross Icon based on correct answer*/}
-                            {
-                                option == correctOption ? (
-                                    <View style={{
-                                        width: 30, height: 30, borderRadius: 30 / 2,
-                                        backgroundColor: COLORS.success,
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                        <MaterialIcons name="check" style={{
-                                            color: COLORS.white,
-                                            fontSize: 20
-                                        }} />
-
-                                    </View>
-                                ) : option == currentOptionSelected ? (
-                                    <View style={{
-                                        width: 30, height: 30, borderRadius: 30 / 2,
-                                        backgroundColor: COLORS.error,
-                                        justifyContent: 'center', alignItems: 'center'
-                                    }}>
-                                        <MaterialIcons name="close" style={{
-                                            color: COLORS.white,
-                                            fontSize: 20
-                                        }} />
-                                    </View>
-                                ) : null
-                            }
-
-                        </TouchableOpacity>
-                    ))
-                }
-            </View >
-        );
-    };
-    const renderNextButton = () => {
-        if (showNextButton) {
-            return (
-                <TouchableOpacity
-                    onPress={handleNext}
-                    style={{
-                        marginTop: 80, width: '100%', backgroundColor: COLORS.success, padding: 20, borderRadius: 5
-                    }}>
-                    <Text style={{
-                        fontSize: 20, color: COLORS.white, textAlign: 'center', fontFamily: "DM-Sans"
-                    }}>Next</Text>
-                </TouchableOpacity>
-            );
-        } else {
-            return null;
+        if (allQuestions[currentQuestionIndex]?.type === "MCQ") {
+            // return renderMCQ();
+            return (<RenderMCQ allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
         }
-    };
+        else if (allQuestions[currentQuestionIndex]?.type === "Match") {
+            return renderMatch();
+        }
+        else {
+            console.log("Error reading options: question type not recognized.");
+        }
 
+    };
 
     const [progress, setProgress] = useState(new Animated.Value(0));
     const progressAnim = progress.interpolate({
         inputRange: [0, allQuestions.length],
         outputRange: ['0%', '100%']
     });
-    const renderProgressBar = () => {
-        return (
-            <View style={{
-                width: '100%',
-                height: 20,
-                borderRadius: 20,
-                backgroundColor: COLORS.accent,
-
-            }}>
-                <Animated.View style={[{
-                    height: 20,
-                    borderRadius: 20,
-                    backgroundColor: COLORS.secondary
-                }, {
-                    width: progressAnim
-                }]}>
-
-                </Animated.View>
-
-            </View>
-        );
-    };
 
 
     return (
@@ -249,16 +144,16 @@ export default function QuizScreen({ navigation }) {
             }}>
 
                 {/* ProgressBar */}
-                {renderProgressBar()}
+                <RenderProgressBar progressAnim={progressAnim} />
 
                 {/* Question */}
-                {renderQuestion()}
+                <RenderQuestion currentQuestionIndex={currentQuestionIndex} allQuestions={allQuestions} />
 
                 {/* Options */}
                 {renderOptions()}
 
                 {/* Next Button */}
-                {renderNextButton()}
+                <QuizNextButton showNextButton={showNextButton} handleNext={handleNext} displayText="Next" />
 
                 {/* Score Modal */}
                 <Modal
