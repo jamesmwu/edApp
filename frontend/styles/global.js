@@ -8,19 +8,17 @@ export const SIZES = {
     height
 };
 
-// export const COLORS = {
 //     yellow: '#F3E37C',
 //     green: '#3E8914',
 //     lightBrown: '#8D6346',
 //     lightBlue: '#57C4E5',
 //     darkBlue: '#0B4F6C'
-// };
 
 export const COLORS = {
-    primary: "#252c4a",
+    primary: '#3498db',
     secondary: '#F3E37C',
     tertiary: '#8D6346',
-    accent: '#3498db',
+    accent: "#252c4a",
 
     success: '#088137',
     successAccent: '#A4F6C5',
@@ -55,11 +53,12 @@ export const globalStyles = StyleSheet.create({
     },
     emphasisText: {
         fontFamily: 'DM-Sans-Bold',
-        color: '#AD40AF', fontWeight: '700'
+        color: COLORS.primary,
+        fontWeight: '700'
     },
     inputFieldButton: {
         fontFamily: 'DM-Sans-Bold',
-        color: '#AD40AF',
+        color: COLORS.primary,
         fontWeight: '700'
     }
 });

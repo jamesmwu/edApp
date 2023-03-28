@@ -7,7 +7,7 @@ export default function renderProgressBar({ progressAnim }) {
             width: '100%',
             height: 20,
             borderRadius: 20,
-            backgroundColor: COLORS.accent,
+            backgroundColor: COLORS.primary,
 
         }}>
             <Animated.View style={[{

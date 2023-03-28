@@ -12,7 +12,8 @@ function Tabs() {
     return (
         <Tab.Navigator screenOptions={{
             tabBarActiveTintColor: COLORS.white,
-            tabBarStyle: { backgroundColor: COLORS.tertiary },
+            tabBarInactiveTintColor: COLORS.accent,
+            tabBarStyle: { backgroundColor: COLORS.primary },
             tabBarShowLabel: false
         }}
         >

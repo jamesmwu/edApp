@@ -78,10 +78,11 @@ export default function QuizScreen({ navigation }) {
 
         if (correct_option[leftChoice] === rightChoice) {
             setCorrectMatchOption((prevSet) => new Set([...prevSet, leftChoice, rightChoice]));
+            return;
         }
 
-        // console.log(correctMatchOption.size);
-        // console.log(allQuestions[currentQuestionIndex].options.left.length);
+        //Player got answer incorrect
+        //Cards should flash red. If life system implemented, decrement one. Then let them keep trying.
     };
 
     useEffect(() => {
