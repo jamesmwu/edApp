@@ -1,94 +1,104 @@
-import { View } from 'react-native';
-import { globalStyles } from '../styles/global';
+import { View, SafeAreaView } from 'react-native';
+import { COLORS, globalStyles } from '../styles/global';
 import Text from '../components/CustomText';
 import CustomButton from '../components/CustomButton';
 import StickyHeaderFlatlist from "react-native-sticky-header-flatlist";
+import { Fragment } from 'react';
 
 const DATA = [
     {
-        title: "Family",
-        contactList: [
-            { title: "Armani Snider" },
-            { title: "Macauly Downs" }
-            //... More name
+        title: "Unit 1",
+        lessons: [
+            { title: "bruh" },
+            { title: "chicken" }
         ]
     },
     {
-        title: "Company",
-        contactList: [
-            { title: "Armani Snider" },
-            { title: "Macauly Downs" }
-            //... More name
+        title: "Unit 2",
+        lessons: [
+            { title: "lol" },
+            { title: "that's a rip" }
         ]
     },
     {
-        title: "Club",
-        contactList: [
-            { title: "Armani Snider" },
-            { title: "Macauly Downs" }
-            //... More name
+        title: "Unit 3",
+        lessons: [
+            { title: "ooga" },
+            { title: "booga" }
         ]
     },
     {
-        title: "Company",
-        contactList: [
-            { title: "Armani Snider" },
-            { title: "Macauly Downs" }
-            //... More name
+        title: "Unit 4",
+        lessons: [
+            { title: "ooga" },
+            { title: "booga" }
         ]
     },
     {
-        title: "Club",
-        contactList: [
-            { title: "Armani Snider" },
-            { title: "Macauly Downs" }
-            //... More name
+        title: "Unit 5",
+        lessons: [
+            { title: "ooga" },
+            { title: "booga" }
         ]
-    }
+    },
+    {
+        title: "Unit 6",
+        lessons: [
+            { title: "ooga" },
+            { title: "booga" }
+        ]
+    },
+    {
+        title: "Unit 7",
+        lessons: [
+            { title: "ooga" },
+            { title: "booga" }
+        ]
+    },
+
 ];
 
 export default function HomeScreen({ navigation }) {
     return (
-        <View style={globalStyles.container}>
-            {/* <CustomButton label="Level 1" onPress={() => { navigation.navigate('Quiz'); }} />
-            <Text>Brief desc</Text> */}
+        <Fragment>
+            <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.accent }} />
+            <SafeAreaView style={globalStyles.container}>
 
-            <StickyHeaderFlatlist
-                keyExtractor={(_, i) => i + ""}
-                childrenKey={"contactList"}
-                renderHeader={({ item }) => {
-                    return (
-                        <Text
-                            style={{
+                <StickyHeaderFlatlist
+                    keyExtractor={(_, i) => i + ""}
+                    childrenKey={"lessons"}
+                    renderHeader={({ item }) => {
+                        return (
+                            <Text style={{
                                 padding: 20,
-                                borderWidth: 1,
-                                borderColor: "#000",
-                                backgroundColor: "#eee",
+                                backgroundColor: COLORS.accent,
                                 textAlign: "center",
+                                color: COLORS.white,
                                 fontWeight: "bold"
-                            }}
-                        >
-                            {item.title}
-                        </Text>
-                    );
-                }}
-                renderItem={({ item }) => {
-                    return (
-                        <Text
-                            style={{
-                                padding: 30,
-                                borderWidth: 1,
-                                borderColor: "#000",
-                                backgroundColor: "#fff"
-                            }}
-                        >
-                            {item.title}
-                        </Text>
-                    );
-                }}
-                data={DATA}
-            />
-        </View>
+                            }}>
+                                {item.title}
+                            </Text>
+                        );
+                    }}
+                    renderItem={({ item }) => {
+                        return (
+                            <View
+                                style={{
+                                    alignItems: "center"
+                                }}
+                            >
+                                <CustomButton label={item.title} onPress={() => { navigation.navigate('Quiz'); }} />
+
+                            </View>
+
+                        );
+                    }}
+                    data={DATA}
+                    style={{ width: "100%" }}
+                />
+            </SafeAreaView>
+        </Fragment>
+
     );
 }
 
