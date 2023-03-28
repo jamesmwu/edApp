@@ -1,22 +1,37 @@
 import { StyleSheet } from "react-native";
-// import * as font from 'expo-font';
+import { Dimensions } from "react-native";
+const { width, height } = Dimensions.get('window');
 
-const yellow = '#F3E37C';
-const green = '#3E8914';
-const lightBrown = '#8D6346';
-const lightBlue = '#57C4E5';
-const darkBlue = '#0B4F6C';
+export const SIZES = {
+    base: 10,
+    width,
+    height
+};
 
-// font.loadAsync({
-//     'DM-Sans': require('../assets/fonts/DMSans-Regular.ttf'),
-//     'DM-Sans-Bold': require('../assets/fonts/DMSans-Bold.ttf')
-// });
+// export const COLORS = {
+//     yellow: '#F3E37C',
+//     green: '#3E8914',
+//     lightBrown: '#8D6346',
+//     lightBlue: '#57C4E5',
+//     darkBlue: '#0B4F6C'
+// };
 
+export const COLORS = {
+    primary: "#252c4a",
+    secondary: '#1E90FF',
+    accent: '#3498db',
+
+    success: '#00C851',
+    error: '#ff4444',
+
+    black: "#171717",
+    white: "#FFFFFF",
+    background: "#252C4A"
+};
 
 export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: lightBrown,
         alignItems: 'center',
         justifyContent: 'center',
     },
