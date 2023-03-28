@@ -4,7 +4,7 @@ import { COLORS, SIZES } from '../styles/global';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-export default function QuizScreen() {
+export default function QuizScreen({ navigation }) {
 
     const allQuestions = [
         {
@@ -22,16 +22,16 @@ export default function QuizScreen() {
             options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
             correct_option: "Hippo"
         },
-        {
-            question: "What is the largest animal on Earth?",
-            options: ["The African elephant", "The blue whale", "The sperm whale", "The giant squid"],
-            correct_option: "The blue whale"
-        },
-        {
-            question: "What is the only flying mammal?",
-            options: ["The bat", "The flying squirrel", "The bald eagle", "The colugo"],
-            correct_option: "The bat"
-        }
+        // {
+        //     question: "What is the largest animal on Earth?",
+        //     options: ["The African elephant", "The blue whale", "The sperm whale", "The giant squid"],
+        //     correct_option: "The blue whale"
+        // },
+        // {
+        //     question: "What is the only flying mammal?",
+        //     options: ["The bat", "The flying squirrel", "The bald eagle", "The colugo"],
+        //     correct_option: "The bat"
+        // }
     ];
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
@@ -52,6 +52,11 @@ export default function QuizScreen() {
         }
         // Show Next Button
         setShowNextButton(true);
+        Animated.timing(progress, {
+            toValue: currentQuestionIndex + 1,
+            duration: 1000,
+            useNativeDriver: false
+        }).start();
     };
     const handleNext = () => {
         if (currentQuestionIndex == allQuestions.length - 1) {
@@ -65,13 +70,8 @@ export default function QuizScreen() {
             setIsOptionsDisabled(false);
             setShowNextButton(false);
         }
-        Animated.timing(progress, {
-            toValue: currentQuestionIndex + 1,
-            duration: 1000,
-            useNativeDriver: false
-        }).start();
     };
-    const restartQuiz = () => {
+    const finishQuiz = () => {
         setShowScoreModal(false);
 
         setCurrentQuestionIndex(0);
@@ -86,6 +86,8 @@ export default function QuizScreen() {
             duration: 1000,
             useNativeDriver: false
         }).start();
+
+        navigation.navigate('Home');
     };
 
 
@@ -223,7 +225,7 @@ export default function QuizScreen() {
 
 
     return (
-        <SafeAreaView style={{
+        <View style={{
             flex: 1
         }}>
             <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
@@ -284,7 +286,7 @@ export default function QuizScreen() {
                             </View>
                             {/* Retry Quiz button */}
                             <TouchableOpacity
-                                onPress={restartQuiz}
+                                onPress={finishQuiz}
                                 style={{
                                     backgroundColor: COLORS.accent,
                                     padding: 20, width: '100%', borderRadius: 20
@@ -316,6 +318,6 @@ export default function QuizScreen() {
                 />
 
             </View>
-        </SafeAreaView>
+        </View>
     );
 }
