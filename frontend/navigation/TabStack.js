@@ -4,16 +4,23 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import QuizScreen from "../screens/QuizScreen";
+import { COLORS } from '../styles/global';
 
 function Tabs() {
     const Tab = createBottomTabNavigator();
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            tabBarActiveTintColor: COLORS.white,
+            tabBarStyle: { backgroundColor: COLORS.tertiary },
+            tabBarShowLabel: false
+        }}
+        >
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="home" color={color} size={size} />
                 ),
+                headerShown: false,
             }} />
             <Tab.Screen name="Profile" component={ProfileScreen} options={{
                 tabBarIcon: ({ color, size }) => (
@@ -23,17 +30,6 @@ function Tabs() {
         </Tab.Navigator>
     );
 }
-
-// export default function TabStack() {
-//     const Stack = createNativeStackNavigator();
-
-//     return (
-//         <Stack.Navigator screenOptions={{ headerShown: false }}>
-//             <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-//             <Stack.Screen name="Quiz" component={QuizScreen} />
-//         </Stack.Navigator>
-//     );
-// }
 
 export default function TabStack() {
     const Stack = createNativeStackNavigator();

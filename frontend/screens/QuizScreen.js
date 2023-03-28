@@ -102,14 +102,19 @@ export default function QuizScreen({ navigation }) {
                     flexDirection: 'row',
                     alignItems: 'flex-end'
                 }}>
-                    <Text style={{ color: COLORS.white, fontSize: 20, opacity: 0.6, marginRight: 2 }}>{currentQuestionIndex + 1}</Text>
-                    <Text style={{ color: COLORS.white, fontSize: 18, opacity: 0.6 }}>/ {allQuestions.length}</Text>
+                    <Text style={{
+                        color: COLORS.white, fontSize: 18, opacity: 0.6, marginRight: 2, fontFamily: "DM-Sans"
+                    }}>{currentQuestionIndex + 1}</Text>
+                    <Text style={{
+                        color: COLORS.white, fontSize: 18, opacity: 0.6, fontFamily: "DM-Sans"
+                    }}> / {allQuestions.length}</Text>
                 </View>
 
                 {/* Question */}
                 <Text style={{
                     color: COLORS.white,
-                    fontSize: 30
+                    fontSize: 30,
+                    fontFamily: "DM-Sans"
                 }}>{allQuestions[currentQuestionIndex]?.question}</Text>
             </View>
         );
@@ -129,12 +134,12 @@ export default function QuizScreen({ navigation }) {
                                     ? COLORS.success
                                     : option == currentOptionSelected
                                         ? COLORS.error
-                                        : COLORS.secondary + '40',
+                                        : COLORS.gray,
                                 backgroundColor: option == correctOption
-                                    ? COLORS.success + '20'
+                                    ? COLORS.successAccent
                                     : option == currentOptionSelected
-                                        ? COLORS.error + '20'
-                                        : COLORS.secondary + '20',
+                                        ? COLORS.errorAccent
+                                        : COLORS.white,
                                 height: 60, borderRadius: 20,
                                 flexDirection: 'row',
                                 alignItems: 'center', justifyContent: 'space-between',
@@ -142,7 +147,9 @@ export default function QuizScreen({ navigation }) {
                                 marginVertical: 10
                             }}
                         >
-                            <Text style={{ fontSize: 20, color: COLORS.white }}>{option}</Text>
+                            <Text style={{
+                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans"
+                            }}>{option}</Text>
 
                             {/* Show Check Or Cross Icon based on correct answer*/}
                             {
@@ -175,7 +182,7 @@ export default function QuizScreen({ navigation }) {
                         </TouchableOpacity>
                     ))
                 }
-            </View>
+            </View >
         );
     };
     const renderNextButton = () => {
@@ -184,9 +191,11 @@ export default function QuizScreen({ navigation }) {
                 <TouchableOpacity
                     onPress={handleNext}
                     style={{
-                        marginTop: 20, width: '100%', backgroundColor: COLORS.accent, padding: 20, borderRadius: 5
+                        marginTop: 80, width: '100%', backgroundColor: COLORS.success, padding: 20, borderRadius: 5
                     }}>
-                    <Text style={{ fontSize: 20, color: COLORS.white, textAlign: 'center' }}>Next</Text>
+                    <Text style={{
+                        fontSize: 20, color: COLORS.white, textAlign: 'center', fontFamily: "DM-Sans"
+                    }}>Next</Text>
                 </TouchableOpacity>
             );
         } else {
@@ -206,13 +215,13 @@ export default function QuizScreen({ navigation }) {
                 width: '100%',
                 height: 20,
                 borderRadius: 20,
-                backgroundColor: '#00000020',
+                backgroundColor: COLORS.accent,
 
             }}>
                 <Animated.View style={[{
                     height: 20,
                     borderRadius: 20,
-                    backgroundColor: COLORS.accent
+                    backgroundColor: COLORS.secondary
                 }, {
                     width: progressAnim
                 }]}>
@@ -226,15 +235,17 @@ export default function QuizScreen({ navigation }) {
 
     return (
         <View style={{
-            flex: 1
+            flex: 1,
+            backgroundColor: COLORS.background,
         }}>
             <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
             <View style={{
                 flex: 1,
                 paddingVertical: 40,
-                paddingHorizontal: 16,
-                backgroundColor: COLORS.background,
-                position: 'relative'
+                paddingHorizontal: 22,
+                position: 'relative',
+                marginTop: 40,
+                // justifyContent: "space-evenly",
             }}>
 
                 {/* ProgressBar */}
@@ -257,7 +268,7 @@ export default function QuizScreen({ navigation }) {
                 >
                     <View style={{
                         flex: 1,
-                        backgroundColor: COLORS.primary,
+                        backgroundColor: COLORS.secondary,
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
@@ -268,7 +279,9 @@ export default function QuizScreen({ navigation }) {
                             padding: 20,
                             alignItems: 'center'
                         }}>
-                            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{score > (allQuestions.length / 2) ? 'Congratulations!' : 'Oops!'}</Text>
+                            <Text style={{
+                                fontSize: 30, fontWeight: 'bold', fontFamily: "DM-Sans"
+                            }}>{score > (allQuestions.length / 2) ? 'Congratulations!' : 'Oops!'}</Text>
 
                             <View style={{
                                 flexDirection: 'row',
@@ -278,11 +291,12 @@ export default function QuizScreen({ navigation }) {
                             }}>
                                 <Text style={{
                                     fontSize: 30,
+                                    fontFamily: "DM-Sans",
                                     color: score > (allQuestions.length / 2) ? COLORS.success : COLORS.error
                                 }}>{score}</Text>
                                 <Text style={{
-                                    fontSize: 20, color: COLORS.black
-                                }}>/ {allQuestions.length}</Text>
+                                    fontSize: 30, color: COLORS.black
+                                }}> / {allQuestions.length}</Text>
                             </View>
                             {/* Retry Quiz button */}
                             <TouchableOpacity
@@ -292,8 +306,8 @@ export default function QuizScreen({ navigation }) {
                                     padding: 20, width: '100%', borderRadius: 20
                                 }}>
                                 <Text style={{
-                                    textAlign: 'center', color: COLORS.white, fontSize: 20
-                                }}>Retry Quiz</Text>
+                                    textAlign: 'center', color: COLORS.white, fontSize: 20, fontFamily: "DM-Sans"
+                                }}>Finish Quiz!</Text>
                             </TouchableOpacity>
 
                         </View>
@@ -302,7 +316,7 @@ export default function QuizScreen({ navigation }) {
                 </Modal>
 
                 {/* Background Image */}
-                <Image
+                {/* <Image
                     source={require('../assets/images/DottedBG.png')}
                     style={{
                         width: SIZES.width,
@@ -315,7 +329,7 @@ export default function QuizScreen({ navigation }) {
                         opacity: 0.5
                     }}
                     resizeMode={'contain'}
-                />
+                /> */}
 
             </View>
         </View>

@@ -18,15 +18,19 @@ export const SIZES = {
 
 export const COLORS = {
     primary: "#252c4a",
-    secondary: '#1E90FF',
+    secondary: '#F3E37C',
+    tertiary: '#8D6346',
     accent: '#3498db',
 
-    success: '#00C851',
+    success: '#088137',
+    successAccent: '#A4F6C5',
     error: '#ff4444',
+    errorAccent: '#F7C0C0',
 
     black: "#171717",
     white: "#FFFFFF",
-    background: "#252C4A"
+    gray: "#666666",
+    background: "#57C4E5"
 };
 
 export const globalStyles = StyleSheet.create({
