@@ -1,5 +1,6 @@
-import { Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import React from 'react';
+import Text from '../components/CustomText';
 
 export default function CustomButton({ label, onPress }) {
     return (
@@ -13,6 +14,7 @@ export default function CustomButton({ label, onPress }) {
             }}>
             <Text
                 style={{
+                    fontFamily: "DM-Sans-Bold",
                     textAlign: 'center',
                     fontWeight: '700',
                     fontSize: 16,

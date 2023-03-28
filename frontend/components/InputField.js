@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, TouchableOpacity, TextInput, Text } from 'react-native';
+import { globalStyles } from '../styles/global';
 
 export default function InputField({
     label,
@@ -23,7 +24,10 @@ export default function InputField({
             {inputType === 'password' ? (
                 <TextInput
                     placeholder={label}
-                    style={{ flex: 1, paddingVertical: 0 }}
+                    style={{
+                        flex: 1, paddingVertical: 0,
+                        fontFamily: "DM-Sans"
+                    }}
                     secureTextEntry={true}
                     value={value}
                     onChangeText={onChangeText}
@@ -33,7 +37,10 @@ export default function InputField({
             ) : (
                 <TextInput
                     placeholder={label}
-                    style={{ flex: 1, paddingVertical: 0 }}
+                    style={{
+                        flex: 1, paddingVertical: 0,
+                        fontFamily: 'DM-Sans'
+                    }}
                     secureTextEntry={false}
                     value={value}
                     onChangeText={onChangeText}
@@ -41,9 +48,10 @@ export default function InputField({
                     autoCorrect={false}
                 />
             )}
-            <TouchableOpacity onPress={fieldButtonFunction}>
-                <Text style={{ color: '#AD40AF', fontWeight: '700' }}>{fieldButtonLabel}</Text>
-            </TouchableOpacity>
+            {fieldButtonFunction && fieldButtonLabel ? <TouchableOpacity onPress={fieldButtonFunction}>
+                <Text style={globalStyles.inputFieldButton}>{fieldButtonLabel}</Text>
+            </TouchableOpacity> : null}
+
         </View>
     );
 }

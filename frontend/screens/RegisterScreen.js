@@ -4,13 +4,13 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import { AuthContext } from '../context/AuthContext';
+import { globalStyles } from '../styles/global';
 
 export default function RegisterScreen({ navigation }) {
     const [username, setUsername] = useState(null);
@@ -19,10 +19,10 @@ export default function RegisterScreen({ navigation }) {
     const { register } = useContext(AuthContext);
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={globalStyles.safeArea}>
             <View style={{ paddingHorizontal: 25 }}>
                 <Text
-                    style={styles.headerText}>
+                    style={globalStyles.headerText}>
                     Register
                 </Text>
 
@@ -76,24 +76,10 @@ export default function RegisterScreen({ navigation }) {
                         marginBottom: 30,
                     }}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.emphasisText}> Back</Text>
+                        <Text style={globalStyles.emphasisText}> Back</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    headerText: {
-        fontSize: 28,
-        fontWeight: '500',
-        color: '#333',
-        marginBottom: 30,
-    },
-    emphasisText: { color: '#AD40AF', fontWeight: '700' }
-});

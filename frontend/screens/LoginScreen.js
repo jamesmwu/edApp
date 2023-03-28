@@ -4,13 +4,13 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import { AuthContext } from '../context/AuthContext';
+import { globalStyles } from '../styles/global';
 
 export default function LoginScreen({ navigation }) {
     const [username, setUsername] = useState(null);
@@ -18,10 +18,10 @@ export default function LoginScreen({ navigation }) {
     const { login } = useContext(AuthContext);
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={globalStyles.safeArea}>
             <View style={{ paddingHorizontal: 25 }}>
                 <Text
-                    style={styles.headerText}>
+                    style={globalStyles.headerText}>
                     Login
                 </Text>
 
@@ -50,8 +50,8 @@ export default function LoginScreen({ navigation }) {
                         />
                     }
                     inputType="password"
-                    // fieldButtonLabel={"Forgot?"}
-                    // fieldButtonFunction={() => { }}
+                    fieldButtonLabel={"Forgot?"}
+                    fieldButtonFunction={() => { }}
                     value={password}
                     onChangeText={text => setPassword(text)}
                 />
@@ -66,25 +66,11 @@ export default function LoginScreen({ navigation }) {
                     }}>
                     <Text>New to the app?</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={styles.emphasisText}> Register</Text>
+                        <Text style={globalStyles.emphasisText}> Register</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    headerText: {
-        fontSize: 28,
-        fontWeight: '500',
-        color: '#333',
-        marginBottom: 30,
-    },
-    emphasisText: { color: '#AD40AF', fontWeight: '700' }
-});
 
