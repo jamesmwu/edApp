@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
-import { View, Text, SafeAreaView, StatusBar, Image, TouchableOpacity, Modal, Animated } from 'react-native';
-import { COLORS, SIZES } from '../styles/global';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StatusBar, TouchableOpacity, Modal, Animated } from 'react-native';
+import { COLORS } from '../styles/global';
 import RenderQuestion from '../components/RenderQuestion';
 import RenderProgressBar from '../components/RenderProgressBar';
 import RenderMCQ from '../components/RenderMCQ';
+import RenderMatch from '../components/RenderMatch';
 import QuizNextButton from '../components/QuizNextButton';
 
 
 export default function QuizScreen({ navigation }) {
 
     const allQuestions = [
-        // {
-        //     type: "Match",
-        //     question: "ooga?",
-        //     options: ["booga", "cooga", "dooga", "eooga"],
-        //     correct_option: "booga"
-        // },
+        {
+            type: "Match",
+            question: "ooga?",
+            options: {
+                left: ["booga", "cooga", "dooga", "wooga"],
+                right: ["congo", "woot", "dog", "bruh"]
+            },
+            correct_option: {
+                "booga": "bruh",
+                "cooga": "congo",
+                "dooga": "dog",
+                "wooga": "woot"
+            }
+        },
         {
             type: "MCQ",
             question: "What’s the biggest planet in our solar system?",
@@ -35,20 +43,11 @@ export default function QuizScreen({ navigation }) {
             options: ["Alligator", "Crocodile", "Baboon", "Hippo"],
             correct_option: "Hippo"
         },
-        // {
-        //     question: "What is the largest animal on Earth?",
-        //     options: ["The African elephant", "The blue whale", "The sperm whale", "The giant squid"],
-        //     correct_option: "The blue whale"
-        // },
-        // {
-        //     question: "What is the only flying mammal?",
-        //     options: ["The bat", "The flying squirrel", "The bald eagle", "The colugo"],
-        //     correct_option: "The bat"
-        // }
     ];
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
     const [correctOption, setCorrectOption] = useState(null);
+    const [correctMatchOption, setCorrectMatchOption] = useState(new Set());
     const [isOptionsDisabled, setIsOptionsDisabled] = useState(false);
     const [score, setScore] = useState(0);
     const [showNextButton, setShowNextButton] = useState(false);
@@ -71,6 +70,35 @@ export default function QuizScreen({ navigation }) {
             useNativeDriver: false
         }).start();
     };
+
+    const validateMatchAnswer = (leftSelect, rightSelect) => {
+        let leftChoice = allQuestions[currentQuestionIndex].options.left[leftSelect];
+        let rightChoice = allQuestions[currentQuestionIndex].options.right[rightSelect];
+        let correct_option = allQuestions[currentQuestionIndex]['correct_option'];
+
+        if (correct_option[leftChoice] === rightChoice) {
+            setCorrectMatchOption((prevSet) => new Set([...prevSet, leftChoice, rightChoice]));
+        }
+
+        // console.log(correctMatchOption.size);
+        // console.log(allQuestions[currentQuestionIndex].options.left.length);
+    };
+
+    useEffect(() => {
+        if (correctMatchOption.size === allQuestions[currentQuestionIndex].options.left.length * 2) {
+            setScore(score + 1);
+            setIsOptionsDisabled(true);
+
+            // Show Next Button
+            setShowNextButton(true);
+            Animated.timing(progress, {
+                toValue: currentQuestionIndex + 1,
+                duration: 1000,
+                useNativeDriver: false
+            }).start();
+        }
+    }, [correctMatchOption]);
+
     const handleNext = () => {
         if (currentQuestionIndex == allQuestions.length - 1) {
             // Last Question
@@ -103,17 +131,12 @@ export default function QuizScreen({ navigation }) {
         navigation.navigate('Home');
     };
 
-    const renderMatch = () => {
-        return (<Text>Hi</Text>);
-    };
-
     const renderOptions = () => {
         if (allQuestions[currentQuestionIndex]?.type === "MCQ") {
-            // return renderMCQ();
             return (<RenderMCQ allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
         }
         else if (allQuestions[currentQuestionIndex]?.type === "Match") {
-            return renderMatch();
+            return (<RenderMatch allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateMatchAnswer={validateMatchAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctMatchOption} />);
         }
         else {
             console.log("Error reading options: question type not recognized.");
@@ -209,23 +232,6 @@ export default function QuizScreen({ navigation }) {
 
                     </View>
                 </Modal>
-
-                {/* Background Image */}
-                {/* <Image
-                    source={require('../assets/images/DottedBG.png')}
-                    style={{
-                        width: SIZES.width,
-                        height: 130,
-                        zIndex: -1,
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        opacity: 0.5
-                    }}
-                    resizeMode={'contain'}
-                /> */}
-
             </View>
         </View>
     );
