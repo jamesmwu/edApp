@@ -2,9 +2,9 @@ POST http://localhost:3001/users/new
 Content-Type: application/json
 
 {
-	"username" : "dummy",
-	"password" : "12345",
-    "name" : "stupid",
+	"username" : "a",
+	"password" : "a",
+    "name" : "a",
     "streak" : 0
 }
 
@@ -46,3 +46,55 @@ Content-Type: application/json
 	"password" : "69",
     "name" : "evenNewerName"
 } 
+
+###
+POST http://localhost:3001/questions/new
+Content-Type: application/json
+
+{
+"type": "MCQ",
+"question": "Sn2 reactions result in an inversion of stereochemistry, meaning that R will switch to S and vice versa.",
+"options": ["The leaving group leaving and forming a carbocation.", "A backside attack which results in the leaving group leaving.", "Deprotonation of a beta carbon.", "Carbocation relocation."],
+"correct_option": "A backside attack which results in the leaving group leaving."
+}
+
+###
+POST http://localhost:3001/questions/new
+Content-Type: application/json
+
+{
+"type": "Match",
+"options": {
+	"left": ["DMSO", "Carboxylic Acid", "Methane"],
+	"right": ["Polar aprotic", "Polar protic", "Nonpolar aprotic"]
+},
+"correct_option": {
+	"DMSO": "Polar aprotic",
+	"Carboxylic Acid": "Polar protic",
+	"Methane": "Nonpolar aprotic"
+}
+}
+
+###
+
+GET http://localhost:3001/questions
+
+###
+
+GET http://localhost:3001/questions/6424ef2f1f239e997825dbfc
+
+###
+
+DELETE http://localhost:3001/questions/delete/6424f0565f8c0c6302707014
+
+###
+
+PUT http://localhost:3001/questions/edit/6424ef2f1f239e997825dbfc
+Content-Type: application/json
+
+{
+"type": "multiple_choice",
+"question": "What is the capital of France?",
+"options": ["Ooga", "Booga"],
+"correct_option": "Ooga"
+}

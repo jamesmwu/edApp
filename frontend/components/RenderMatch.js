@@ -22,7 +22,7 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
 
     //Check if both selections have been made
     useEffect(() => {
-        if (leftSelect !== -1 && rightSelect !== -1) {
+        if (leftSelect !== null && rightSelect !== null && leftSelect !== -1 && rightSelect !== -1) {
             validateMatchAnswer(leftSelect, rightSelect);
         }
     }, [leftSelect, rightSelect]);
@@ -38,12 +38,12 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
                             key={leftOption}
                             style={{
                                 borderWidth: 3,
-                                borderColor: correctOption.has(leftOption)
+                                borderColor: correctOption?.has(leftOption)
                                     ? COLORS.success
                                     : leftOption == currentOptionSelected
                                         ? COLORS.error
                                         : index == leftSelect ? COLORS.secondary : COLORS.gray,
-                                backgroundColor: correctOption.has(leftOption)
+                                backgroundColor: correctOption?.has(leftOption)
                                     ? COLORS.successAccent
                                     : leftOption == currentOptionSelected
                                         ? COLORS.errorAccent
@@ -100,12 +100,12 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
                             key={rightOption}
                             style={{
                                 borderWidth: 3,
-                                borderColor: correctOption.has(rightOption)
+                                borderColor: correctOption?.has(rightOption)
                                     ? COLORS.success
                                     : rightOption == currentOptionSelected
                                         ? COLORS.error
                                         : index == rightSelect ? COLORS.secondary : COLORS.gray,
-                                backgroundColor: correctOption.has(rightOption)
+                                backgroundColor: correctOption?.has(rightOption)
                                     ? COLORS.successAccent
                                     : rightOption == currentOptionSelected
                                         ? COLORS.errorAccent

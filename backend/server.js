@@ -12,7 +12,7 @@ mongoose.set('strictQuery', false);
 
 mongoose
     .connect(
-        'mongodb+srv://jameswu21:Wames21@app.tdz0amb.mongodb.net/',
+        'mongodb+srv://jameswu21:Wames21@app.tdz0amb.mongodb.net/data',
         {
             useNewUrlParser: true,
             useUnifiedTopology: true
@@ -24,6 +24,7 @@ mongoose
 app.listen(3001, () => console.log('Server listening on port 3001'));
 
 const User = require('./models/users');
+const Question = require('./models/questions');
 
 //Users endpoints
 app.get('/users', async (req, res) => {
@@ -85,4 +86,50 @@ app.put('/users/edit/:_id', async (req, res) => {
     user.save();
 
     res.json(user);
+});
+
+
+//Questions endpoints
+app.get('/questions', async (req, res) => {
+    const questions = await Question.find();
+
+    res.json(questions);
+});
+
+app.get('/questions/:_id', async (req, res) => {
+    const questions = await Question.findById(req.params._id);
+
+    res.json(questions);
+});
+
+app.post('/questions/new', async (req, res) => {
+    const question = new Question({
+        type: req.body.type,
+        question: req.body.question,
+        options: req.body.options,
+        correct_option: req.body.correct_option
+    });
+
+    await question.save();
+
+    res.json(question);
+});
+
+app.delete('/questions/delete/:_id', async (req, res) => {
+    const result = await Question.findByIdAndDelete(req.params._id);
+
+    res.json(result);
+});
+
+app.put('/questions/edit/:_id', async (req, res) => {
+    const question = await Question.findById(req.params._id);
+
+    question.type = req.body.type;
+    question.question = req.body.question;
+    question.options = req.body.options;
+    question.correct_option = req.body.correct_option;
+
+    await question.save();
+
+    res.json(question);
 });

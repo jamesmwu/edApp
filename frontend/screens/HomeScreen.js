@@ -84,7 +84,8 @@ export default function HomeScreen({ navigation }) {
                         return (
                             <View
                                 style={{
-                                    alignItems: "center"
+                                    alignItems: "center",
+                                    marginTop: 40,
                                 }}
                             >
                                 <CustomButton label={item.title} onPress={() => { navigation.navigate('Quiz'); }} />
