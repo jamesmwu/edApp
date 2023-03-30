@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { COLORS } from '../styles/global';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-export default function RenderMatch({ allQuestions, currentQuestionIndex, validateMatchAnswer, isOptionsDisabled, currentOptionSelected, correctOption }) {
+//NOTE: Heights are hard coded right now. Search for alternative as questions grow?
+
+export default function RenderMatch({ leftArr, rightArr, validateMatchAnswer, isOptionsDisabled, currentOptionSelected, correctOption }) {
     const [rightSelect, setRightSelect] = useState(-1);
     const [leftSelect, setLeftSelect] = useState(-1);
 
@@ -31,7 +32,7 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <View style={{ flexDirection: 'column' }}>
                 {
-                    allQuestions[currentQuestionIndex]?.options.left.map((leftOption, index) => (
+                    leftArr.map((leftOption, index) => (
                         <TouchableOpacity
                             onPress={() => selectFunction(index, "left")}
                             disabled={isOptionsDisabled}
@@ -48,44 +49,17 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
                                     : leftOption == currentOptionSelected
                                         ? COLORS.errorAccent
                                         : COLORS.white,
-                                height: 60, borderRadius: 20,
+                                height: 100, borderRadius: 20,
                                 flexDirection: 'row',
                                 alignItems: 'center', justifyContent: 'space-between',
                                 paddingHorizontal: 20,
+                                paddingVertical: 20,
                                 marginVertical: 10
                             }}
                         >
                             <Text style={{
-                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans"
+                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans", maxWidth: 100, flexWrap: "wrap"
                             }}>{leftOption}</Text>
-
-                            {/* Show Check Or Cross Icon based on correct answer*/}
-                            {/* {
-                            leftOption == correctOption ? (
-                                <View style={{
-                                    width: 30, height: 30, borderRadius: 30 / 2,
-                                    backgroundColor: COLORS.success,
-                                    justifyContent: 'center', alignItems: 'center'
-                                }}>
-                                    <MaterialIcons name="check" style={{
-                                        color: COLORS.white,
-                                        fontSize: 20
-                                    }} />
-
-                                </View>
-                            ) : leftOption == currentOptionSelected ? (
-                                <View style={{
-                                    width: 30, height: 30, borderRadius: 30 / 2,
-                                    backgroundColor: COLORS.error,
-                                    justifyContent: 'center', alignItems: 'center'
-                                }}>
-                                    <MaterialIcons name="close" style={{
-                                        color: COLORS.white,
-                                        fontSize: 20
-                                    }} />
-                                </View>
-                            ) : null
-                        } */}
 
                         </TouchableOpacity>
                     ))
@@ -93,7 +67,7 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
             </View>
             <View style={{ flexDirection: 'column' }}>
                 {
-                    allQuestions[currentQuestionIndex]?.options.right.map((rightOption, index) => (
+                    rightArr.map((rightOption, index) => (
                         <TouchableOpacity
                             onPress={() => { selectFunction(index, "right"); }}
                             disabled={isOptionsDisabled}
@@ -110,18 +84,17 @@ export default function RenderMatch({ allQuestions, currentQuestionIndex, valida
                                     : rightOption == currentOptionSelected
                                         ? COLORS.errorAccent
                                         : COLORS.white,
-                                height: 60, borderRadius: 20,
+                                height: 100, borderRadius: 20,
                                 flexDirection: 'row',
                                 alignItems: 'center', justifyContent: 'space-between',
                                 paddingHorizontal: 20,
+                                paddingVertical: 10,
                                 marginVertical: 10
                             }}
                         >
                             <Text style={{
-                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans"
+                                fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans", maxWidth: 100, flexWrap: "wrap"
                             }}>{rightOption}</Text>
-
-                            {/* Show Check Or Cross Icon based on correct answer*/}
 
                         </TouchableOpacity>))
                 }

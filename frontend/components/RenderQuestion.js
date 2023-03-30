@@ -5,7 +5,7 @@ export default function RenderQuestion({ currentQuestionIndex, allQuestions }) {
 
     return (
         <View style={{
-            marginVertical: 40
+            marginVertical: 20
         }}>
             {/* Question Counter */}
             <View style={{

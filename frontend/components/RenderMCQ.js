@@ -24,15 +24,16 @@ export default function RenderMCQ({ allQuestions, currentQuestionIndex, validate
                                 : option == currentOptionSelected
                                     ? COLORS.errorAccent
                                     : COLORS.white,
-                            height: 60, borderRadius: 20,
+                            minHeight: 60, borderRadius: 20,
                             flexDirection: 'row',
                             alignItems: 'center', justifyContent: 'space-between',
                             paddingHorizontal: 20,
-                            marginVertical: 10
+                            paddingVertical: 10,
+                            marginVertical: 10,
                         }}
                     >
                         <Text style={{
-                            fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans"
+                            fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans", maxWidth: 270, flexWrap: "wrap"
                         }}>{option}</Text>
 
                         {/* Show Check Or Cross Icon based on correct answer*/}

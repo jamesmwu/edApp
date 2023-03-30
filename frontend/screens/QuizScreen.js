@@ -9,37 +9,6 @@ import RenderTF from '../components/RenderTF';
 import QuizNextButton from '../components/QuizNextButton';
 import axios from 'axios';
 
-// const allQuestions = [
-//     {
-//         type: "TF",
-//         question: "Am I a player",
-//         correct_option: "True"
-//     },
-
-//     {
-//         type: "Match",
-//         question: "ooga?",
-//         options: {
-//             left: ["booga", "cooga", "dooga", "wooga"],
-//             right: ["congo", "woot", "dog", "bruh"]
-//         },
-//         correct_option: {
-//             "booga": "bruh",
-//             "cooga": "congo",
-//             "dooga": "dog",
-//             "wooga": "woot"
-//         }
-//     },
-
-//     {
-//         type: "MCQ",
-//         question: "What’s the biggest planet in our solar system?",
-//         options: ["Jupiter", "Saturn", "Neptune", "Mercury"],
-//         correct_option: "Jupiter"
-//     }
-// ];
-
-
 export default function QuizScreen({ navigation }) {
     const [allQuestions, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -102,24 +71,6 @@ export default function QuizScreen({ navigation }) {
         //Cards should flash red. If life system implemented, decrement one. Then let them keep trying.
     };
 
-    // const validateTFAnswer = (selectedOption) => {
-    //     let correct_option = allQuestions[currentQuestionIndex]['correct_option'];
-    //     setCurrentOptionSelected(selectedOption);
-    //     setCorrectOption(correct_option);
-    //     setIsOptionsDisabled(true);
-    //     if (selectedOption == correct_option) {
-    //         // Set Score
-    //         setScore(score + 1);
-    //     }
-    //     // Show Next Button
-    //     setShowNextButton(true);
-    //     Animated.timing(progress, {
-    //         toValue: currentQuestionIndex + 1,
-    //         duration: 1000,
-    //         useNativeDriver: false
-    //     }).start();
-    // };
-
     //Used to validate match answer, useEffect necessary to monitor progress of set due to async
     useEffect(() => {
         if (correctMatchOption === null) return;
@@ -175,7 +126,7 @@ export default function QuizScreen({ navigation }) {
             return (<RenderMCQ allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
         }
         else if (allQuestions[currentQuestionIndex]?.type === "Match") {
-            return (<RenderMatch allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateMatchAnswer={validateMatchAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctMatchOption} />);
+            return (<RenderMatch leftArr={allQuestions[currentQuestionIndex]?.options.left} rightArr={allQuestions[currentQuestionIndex]?.options.right} validateMatchAnswer={validateMatchAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctMatchOption} />);
         }
         else if (allQuestions[currentQuestionIndex]?.type === "TF") {
             return (<RenderTF validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
@@ -207,17 +158,18 @@ export default function QuizScreen({ navigation }) {
                         paddingHorizontal: 22,
                         position: 'relative',
                         marginTop: 40,
-                        // justifyContent: "space-evenly",
+                        justifyContent: "space-between",
                     }}>
+                        <View>
+                            {/* ProgressBar */}
+                            <RenderProgressBar progressAnim={progressAnim} />
 
-                        {/* ProgressBar */}
-                        <RenderProgressBar progressAnim={progressAnim} />
+                            {/* Question */}
+                            <RenderQuestion currentQuestionIndex={currentQuestionIndex} allQuestions={allQuestions} />
 
-                        {/* Question */}
-                        <RenderQuestion currentQuestionIndex={currentQuestionIndex} allQuestions={allQuestions} />
-
-                        {/* Options */}
-                        {renderOptions()}
+                            {/* Options */}
+                            {renderOptions()}
+                        </View>
 
                         {/* Next Button */}
                         <QuizNextButton showNextButton={showNextButton} handleNext={handleNext} displayText="Next" />
