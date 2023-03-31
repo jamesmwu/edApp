@@ -28,8 +28,12 @@ export default function LoginScreen({ navigation }) {
 
     function handleLogin(username, password) {
         let correctEmail = validate(username);
+        if (!correctEmail) {
+            setError(true);
+            return;
+        }
         let valid = login(username, password);;
-        if (!correctEmail || !valid) {
+        if (!valid) {
             setError(true);
         }
     }

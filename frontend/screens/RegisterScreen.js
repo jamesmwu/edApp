@@ -22,21 +22,24 @@ export default function RegisterScreen({ navigation }) {
     function validate(text) {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         if (reg.test(text) === false) {
-            console.log("Email is Not Correct");
             setEmail(text);
             return false;
         }
         else {
             setEmail(text);
-            console.log("Email is Correct");
             return true;
         }
     }
 
     function handleRegister(email, password, name) {
         let correctEmail = validate(email);
+        if (!correctEmail) {
+            setError(true);
+            return;
+        }
+
         let valid = register(email, password, name);
-        if (!correctEmail || !valid) {
+        if (!valid) {
             setError(true);
         }
     }
