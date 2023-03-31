@@ -16,7 +16,8 @@ export const AuthProvider = ({ children }) => {
             "username": username,
             "password": password,
             "name": name,
-            "streak": 0
+            "streak": 0,
+            "score": 0,
         }).then(res => {
             return login(username, password);
         }).catch(e => {
@@ -60,6 +61,17 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
     }
 
+    async function fetchUserInfo() {
+        try {
+            const response = await axios.get(BASE_URL + '/users/' + userInfo._id);
+            const userData = response.data;
+            setUserInfo(userData);
+            AsyncStorage.setItem('userInfo', JSON.stringify(userData));
+        } catch (error) {
+            console.log('Error fetching user info:', error);
+        }
+    }
+
     async function isLoggedIn() {
         try {
             setIsLoading(true);
@@ -68,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
             if (info) {
                 setUserToken(token);
-                setUserInfo(JSON.parse(info));
+                setUserInfo(JSON.parse(info));  //LOCAL STORE
             }
 
             setIsLoading(false);
@@ -80,6 +92,12 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         isLoggedIn();
     }, []);
+
+    useEffect(() => {
+        if (userInfo) {
+            fetchUserInfo();
+        }
+    }, [userInfo]);
 
     return (
         <AuthContext.Provider value={{ register, login, logout, isLoading, userToken, userInfo }}>

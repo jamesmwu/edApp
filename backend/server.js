@@ -33,6 +33,12 @@ app.get('/users', async (req, res) => {
     res.json(users);
 });
 
+app.get('/users/:_id', async (req, res) => {
+    const users = await User.findById(req.params._id);
+
+    res.json(users);
+});
+
 app.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {

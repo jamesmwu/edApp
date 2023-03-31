@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StatusBar, TouchableOpacity, Modal, Animated, ActivityIndicator } from 'react-native';
 import { COLORS, URL } from '../styles/global';
 import RenderQuestion from '../components/RenderQuestion';
@@ -8,8 +8,10 @@ import RenderMatch from '../components/RenderMatch';
 import RenderTF from '../components/RenderTF';
 import QuizNextButton from '../components/QuizNextButton';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 export default function QuizScreen({ navigation }) {
+    const { userInfo } = useContext(AuthContext);
     const [allQuestions, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -27,6 +29,19 @@ export default function QuizScreen({ navigation }) {
             console.error(error);
         }
     }
+
+    //Updates user score
+    async function incrementScore() {
+
+        axios.put(URL + '/users/updateScore/' + userInfo._id, {
+            "incrementScore": 20
+        }).then(res => {
+            // console.log(res.data.score);
+        }).catch(e => {
+            console.log("Register Error " + e);
+        });
+    }
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [currentOptionSelected, setCurrentOptionSelected] = useState(null);
     const [correctOption, setCorrectOption] = useState(null);
@@ -42,8 +57,9 @@ export default function QuizScreen({ navigation }) {
         setCorrectOption(correct_option);
         setIsOptionsDisabled(true);
         if (selectedOption == correct_option) {
-            // Set Score
+            // Update question UI score and user score
             setScore(score + 1);
+            incrementScore();
         }
         // Show Next Button
         setShowNextButton(true);
@@ -72,11 +88,13 @@ export default function QuizScreen({ navigation }) {
     };
 
     //Used to validate match answer, useEffect necessary to monitor progress of set due to async
+    //User has matched all cards correctly
     useEffect(() => {
         if (correctMatchOption === null) return;
         if (correctMatchOption?.size === allQuestions[currentQuestionIndex]?.options?.left?.length * 2) {
             setScore(score + 1);
             setIsOptionsDisabled(true);
+            incrementScore();
 
             // Show Next Button
             setShowNextButton(true);
@@ -117,6 +135,7 @@ export default function QuizScreen({ navigation }) {
             duration: 1000,
             useNativeDriver: false
         }).start();
+
 
         navigation.navigate('Home');
     };
