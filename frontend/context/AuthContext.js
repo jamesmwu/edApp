@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
 
-    function register(username, password, name) {
+    async function register(username, password, name) {
         setIsLoading(true);
         axios.post(BASE_URL + '/users/new', {
             "username": username,
@@ -27,13 +27,14 @@ export const AuthProvider = ({ children }) => {
         setIsLoading(false);
     }
 
-    function login(username, password) {
+    async function login(username, password) {
         setIsLoading(true);
-        axios.post(BASE_URL + '/login', {
-            "username": username,
-            "password": password
-        }).then(res => {
-            let curUser = res.data;
+        try {
+            const response = await axios.post(BASE_URL + '/login', {
+                "username": username,
+                "password": password
+            });
+            const curUser = response.data;
 
             setUserInfo(curUser.user);
             setUserToken(curUser.token);
@@ -41,14 +42,15 @@ export const AuthProvider = ({ children }) => {
             //Make sure to user "curUser" for these, since async.
             AsyncStorage.setItem('userInfo', JSON.stringify(curUser.user));
             AsyncStorage.setItem('userToken', curUser.token);
+            setIsLoading(false);
             return true;
-        }).catch(e => {
-            console.log("Login Error" + e);
+        } catch (error) {
+            console.log("Login Error" + error);
+            setIsLoading(false);
             return false;
-        });
-
-        setIsLoading(false);
+        }
     }
+
 
     function logout() {
         setIsLoading(true);

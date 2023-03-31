@@ -14,7 +14,7 @@ export default function ProfileScreen() {
                 <Text style={globalStyles.headerText}>{userInfo.name}</Text>
                 <Text>{userInfo.username}</Text>
             </View>
-            <Text style={globalStyles.headerText}>Your Streak: {userInfo.streak}</Text>
+            <Text style={globalStyles.headerText}>Your Score: {userInfo.score}</Text>
             <View>
                 <CustomButton label='Edit Profile' onPress={() => { console.log("Edit Profile Button pressed"); }} />
                 <CustomButton label='Sign Out' onPress={() => { logout(); }} />

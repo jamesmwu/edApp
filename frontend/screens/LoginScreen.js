@@ -26,17 +26,28 @@ export default function LoginScreen({ navigation }) {
         return true;
     }
 
-    function handleLogin(username, password) {
+    async function handleLogin(username, password) {
         let correctEmail = validate(username);
         if (!correctEmail) {
             setError(true);
             return;
         }
-        let valid = login(username, password);;
-        if (!valid) {
+
+        try {
+            let valid = await login(username, password);
+            if (!valid) {
+                // console.log("LOGIN");
+                setError(true);
+                return;
+            }
+
+            setError(false);
+        } catch (error) {
+            console.log(error);
             setError(true);
         }
     }
+
 
     return (
         <SafeAreaView style={globalStyles.safeArea}>
