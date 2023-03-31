@@ -21,6 +21,10 @@ const UserSchema = new Schema({
         type: Number,
         required: true,
     },
+    score: {
+        type: Number,
+        required: true,
+    },
     lastLoggedIn: {
         type: Date,
         default: null,

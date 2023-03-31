@@ -63,7 +63,8 @@ app.post('/users/new', async (req, res) => {
         username: req.body.username,
         password: req.body.password,
         name: req.body.name,
-        streak: 0
+        streak: 0,
+        score: 0,
     });
 
     await user.save();
@@ -87,6 +88,16 @@ app.put('/users/edit/:_id', async (req, res) => {
 
     res.json(user);
 });
+
+app.put('/users/updateScore/:_id', async (req, res) => {
+    const user = await User.findById(req.params._id);
+
+    user.score += req.body.incrementScore;
+    user.save();
+
+    res.json(user);
+});
+
 
 
 //Questions endpoints

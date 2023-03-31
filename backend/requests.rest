@@ -2,10 +2,11 @@ POST http://localhost:3001/users/new
 Content-Type: application/json
 
 {
-	"username" : "a",
-	"password" : "a",
-    "name" : "a",
-    "streak" : 0
+	"username" : "jam@gmail.com",
+	"password" : "jam",
+    "name" : "jam",
+    "streak" : 0,
+	"score" : 0
 }
 
 ###
@@ -34,7 +35,27 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3001/users/delete/6424ea4c6507dbc8d6eb4954
+DELETE http://localhost:3001/users/delete/64272a886a5b8677ac687f1b
+
+###
+
+PUT http://localhost:3001/users/edit/64272c6842a15c79211e2588
+Content-Type: application/json
+
+{
+	"username" : "newDummy",
+	"password" : "69",
+    "name" : "evenNewerName"
+} 
+
+###
+
+PUT http://localhost:3001/users/updateScore/64272c6842a15c79211e2588
+Content-Type: application/json
+
+{
+	"incrementScore" : 60
+}
 
 ###
 
@@ -48,6 +69,7 @@ Content-Type: application/json
 } 
 
 ###
+
 POST http://localhost:3001/questions/new
 Content-Type: application/json
 
