@@ -40,6 +40,17 @@ export const globalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    profileContainer: {
+        flex: 1,
+        margin: 30,
+        // alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    profileHeader: {
+        flex: 0.16,
+        justifyContent: "space-between",
+        // backgroundColor: "red"
+    },
     text: {
         fontFamily: 'DM-Sans'
     },
@@ -48,6 +59,12 @@ export const globalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     headerText: {
+        fontFamily: 'DM-Sans-Bold',
+        fontSize: 28,
+        fontWeight: '500',
+        color: '#333',
+    },
+    authHeaderText: {
         fontFamily: 'DM-Sans-Bold',
         fontSize: 28,
         fontWeight: '500',

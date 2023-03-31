@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
         <SafeAreaView style={globalStyles.safeArea}>
             <View style={{ paddingHorizontal: 25 }}>
                 <Text
-                    style={globalStyles.headerText}>
+                    style={globalStyles.authHeaderText}>
                     Login
                 </Text>
 

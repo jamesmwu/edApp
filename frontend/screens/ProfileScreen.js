@@ -9,13 +9,17 @@ export default function ProfileScreen() {
     const { userInfo, logout } = useContext(AuthContext);
     // console.log(userInfo);
     return (
-        <View style={globalStyles.container}>
-            <View>
+        <View style={globalStyles.profileContainer}>
+            <View style={globalStyles.profileHeader}>
                 <Text style={globalStyles.headerText}>{userInfo.name}</Text>
                 <Text>{userInfo.username}</Text>
             </View>
-            <CustomButton label='Edit Profile' onPress={() => { console.log("Edit Profile Button pressed"); }} />
-            <CustomButton label='Sign Out' onPress={() => { logout(); }} />
+            <Text style={globalStyles.headerText}>Your Streak: {userInfo.streak}</Text>
+            <View>
+                <CustomButton label='Edit Profile' onPress={() => { console.log("Edit Profile Button pressed"); }} />
+                <CustomButton label='Sign Out' onPress={() => { logout(); }} />
+            </View>
+
         </View>
     );
 }
