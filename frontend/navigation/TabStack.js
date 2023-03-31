@@ -4,6 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import QuizScreen from "../screens/QuizScreen";
+import LeaderboardScreen from "../screens/LeaderboardScreen";
 import { COLORS } from '../styles/global';
 
 function Tabs() {
@@ -20,6 +21,12 @@ function Tabs() {
             <Tab.Screen name="Home" component={HomeScreen} options={{
                 tabBarIcon: ({ color, size }) => (
                     <MaterialIcons name="home" color={color} size={size} />
+                ),
+                headerShown: false,
+            }} />
+            <Tab.Screen name="LeaderboardScreen" component={LeaderboardScreen} options={{
+                tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons name="leaderboard" color={color} size={size} />
                 ),
                 headerShown: false,
             }} />
