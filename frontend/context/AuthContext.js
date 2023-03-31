@@ -18,9 +18,10 @@ export const AuthProvider = ({ children }) => {
             "name": name,
             "streak": 0
         }).then(res => {
-            login(username, password);
+            return login(username, password);
         }).catch(e => {
-            console.log("Register Error" + e);
+            console.log("Register Error " + e);
+            return false;
         });
 
         setIsLoading(false);
@@ -40,9 +41,10 @@ export const AuthProvider = ({ children }) => {
             //Make sure to user "curUser" for these, since async.
             AsyncStorage.setItem('userInfo', JSON.stringify(curUser.user));
             AsyncStorage.setItem('userToken', curUser.token);
-
+            return true;
         }).catch(e => {
             console.log("Login Error" + e);
+            return false;
         });
 
         setIsLoading(false);

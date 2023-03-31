@@ -63,5 +63,9 @@ export const globalStyles = StyleSheet.create({
         fontFamily: 'DM-Sans-Bold',
         color: COLORS.primary,
         fontWeight: '700'
+    },
+    error: {
+        color: COLORS.error,
+        fontFamily: 'DM-Sans-Bold'
     }
 });

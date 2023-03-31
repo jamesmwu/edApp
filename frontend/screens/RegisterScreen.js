@@ -13,10 +13,33 @@ import { AuthContext } from '../context/AuthContext';
 import { globalStyles } from '../styles/global';
 
 export default function RegisterScreen({ navigation }) {
-    const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [error, setError] = useState(false);
     const [name, setName] = useState(null);
     const [password, setPassword] = useState(null);
     const { register } = useContext(AuthContext);
+
+    function validate(text) {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+            console.log("Email is Not Correct");
+            setEmail(text);
+            return false;
+        }
+        else {
+            setEmail(text);
+            console.log("Email is Correct");
+            return true;
+        }
+    }
+
+    function handleRegister(email, password, name) {
+        let correctEmail = validate(email);
+        let valid = register(email, password, name);
+        if (!correctEmail || !valid) {
+            setError(true);
+        }
+    }
 
     return (
         <SafeAreaView style={globalStyles.safeArea}>
@@ -36,8 +59,9 @@ export default function RegisterScreen({ navigation }) {
                             style={{ marginRight: 10 }}
                         />
                     }
-                    value={username}
-                    onChangeText={text => setUsername(text)}
+                    value={email}
+                    inputType="email"
+                    onChangeText={text => setEmail(text)}
                 />
 
                 <InputField
@@ -68,7 +92,13 @@ export default function RegisterScreen({ navigation }) {
                     onChangeText={text => setName(text)}
                 />
 
-                <CustomButton label={"Register"} onPress={() => { register(username, password, name); }} />
+                {error ?
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+                        <Text style={globalStyles.error}>Please enter valid email.</Text>
+                    </View>
+                    : null}
+
+                <CustomButton label={"Register"} onPress={() => { handleRegister(email, password, name); }} />
                 <View
                     style={{
                         flexDirection: 'row',

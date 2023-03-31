@@ -15,7 +15,24 @@ import { globalStyles } from '../styles/global';
 export default function LoginScreen({ navigation }) {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    const [error, setError] = useState(false);
     const { login } = useContext(AuthContext);
+
+    function validate(text) {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(text) === false) {
+            return false;
+        }
+        return true;
+    }
+
+    function handleLogin(username, password) {
+        let correctEmail = validate(username);
+        let valid = login(username, password);;
+        if (!correctEmail || !valid) {
+            setError(true);
+        }
+    }
 
     return (
         <SafeAreaView style={globalStyles.safeArea}>
@@ -50,13 +67,20 @@ export default function LoginScreen({ navigation }) {
                         />
                     }
                     inputType="password"
-                    fieldButtonLabel={"Forgot?"}
-                    fieldButtonFunction={() => { }}
+                    // fieldButtonLabel={"Forgot?"}
+                    // fieldButtonFunction={() => { }}
                     value={password}
                     onChangeText={text => setPassword(text)}
                 />
 
-                <CustomButton label={"Login"} onPress={() => { login(username, password); }} />
+                {error ?
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 30 }}>
+                        <Text style={globalStyles.error}>Incorrect login information.</Text>
+                    </View>
+                    : null}
+
+
+                <CustomButton label={"Login"} onPress={() => { handleLogin(username, password); }} />
 
                 <View
                     style={{

@@ -7,7 +7,7 @@ import { globalStyles } from '../styles/global';
 
 export default function ProfileScreen() {
     const { userInfo, logout } = useContext(AuthContext);
-
+    // console.log(userInfo);
     return (
         <View style={globalStyles.container}>
             <View>

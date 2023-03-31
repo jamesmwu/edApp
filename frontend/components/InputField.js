@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, TextInput, Text } from 'react-native';
 import { globalStyles } from '../styles/global';
 
@@ -11,6 +11,7 @@ export default function InputField({
     value,
     onChangeText
 }) {
+
     return (
         <View
             style={{
@@ -30,6 +31,20 @@ export default function InputField({
                     }}
                     secureTextEntry={true}
                     value={value}
+                    onChangeText={onChangeText}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                />
+            ) : inputType === 'email' ? (
+                <TextInput
+                    placeholder={label}
+                    style={{
+                        flex: 1, paddingVertical: 0,
+                        fontFamily: 'DM-Sans'
+                    }}
+                    secureTextEntry={false}
+                    value={value}
+                    inputMode="email"
                     onChangeText={onChangeText}
                     autoCapitalize='none'
                     autoCorrect={false}

@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     streak: {
         type: Number,
         required: true,
+    },
+    lastLoggedIn: {
+        type: Date,
+        default: null,
     }
 });
 
