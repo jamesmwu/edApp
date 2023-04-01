@@ -12,6 +12,29 @@ import {
 const oddRowColor = "white";
 const evenRowColor = "#f2f5f7";
 
+/**
+ * 
+ * @param {*} props 
+ * 
+ * REQUIRED
+ * data: Array of objects
+ * sortBy: String
+ * labelBy: String
+ * 
+ * OPTIONAL
+ * sort: function
+ * icon: String
+ * onRowPress: function
+ * renderItem: function
+ * scoreStyle: object
+ * rankStyle: object
+ * labelStyle: object
+ * avatarStyle: object
+ * oddRowColor: string
+ * evenRowColor: string
+ * 
+ * @returns Flatlist Leaderboard
+ */
 export default function Leaderboard(props) {
     const [sortedData, setSortedData] = useState([]);
 
@@ -39,10 +62,12 @@ export default function Leaderboard(props) {
                         {parseInt(index) + 1}
                     </Text>
                     {props.icon && (
-                        <Image
-                            source={{ uri: item[props.icon] }}
-                            style={[styles.avatar, props.avatarStyle]}
-                        />
+                        <View style={styles.imgContainer}>
+                            <Image
+                                source={{ uri: item[props.icon] }}
+                                style={[styles.avatar, props.avatarStyle]}
+                            />
+                        </View>
                     )}
                     <Text style={[styles.label, props.labelStyle]} numberOfLines={1}>
                         {item[props.labelBy]}
@@ -64,7 +89,9 @@ export default function Leaderboard(props) {
     };
 
     const renderItem = ({ item, index }) => {
-        return defaultRenderItem(item, index);
+        return props.renderItem
+            ? props.renderItem(item, index)
+            : defaultRenderItem(item, index);
     };
 
     return (
@@ -76,27 +103,6 @@ export default function Leaderboard(props) {
     );
 };
 
-// Leaderboard.propTypes = {
-//     ...ViewPropTypes,
-//     //required
-//     data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-//     sortBy: PropTypes.string.isRequired,
-//     labelBy: PropTypes.string.isRequired,
-
-//     //optional
-//     sort: PropTypes.func,
-//     icon: PropTypes.string,
-//     onRowPress: PropTypes.func,
-//     renderItem: PropTypes.func,
-//     containerStyle: PropTypes.object,
-//     scoreStyle: PropTypes.object,
-//     rankStyle: PropTypes.object,
-//     labelStyle: PropTypes.object,
-//     avatarStyle: PropTypes.object,
-//     oddRowColor: PropTypes.string,
-//     evenRowColor: PropTypes.string
-// };
-
 const styles = StyleSheet.create({
     row: {
         paddingTop: 15,
@@ -104,44 +110,47 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        borderWidth: 0.5,
-        borderRadius: 5,
-        borderColor: "#d6d7da"
+        // borderWidth: 0.5,
+        // borderColor: "#d6d7da"
     },
     left: {
         flexDirection: "row",
         alignItems: "center"
     },
     rank: {
-        fontSize: 17,
-        fontWeight: "bold",
-        marginRight: 5
+        fontSize: 20,
+        // marginRight: 5,
+        fontFamily: "DM-Sans-Bold"
     },
     singleDidget: {
-        paddingLeft: 16,
-        paddingRight: 6
+        paddingLeft: 30,
+        // paddingRight: 6,
     },
     doubleDidget: {
-        paddingLeft: 10,
-        paddingRight: 2
+        paddingLeft: 30,
+        paddingRight: 2,
     },
     label: {
         fontSize: 17,
-        flex: 1,
-        paddingRight: 80
+        // flex: 1,
+        paddingRight: 80,
+        fontFamily: "DM-Sans",
     },
     score: {
         fontSize: 20,
-        fontWeight: "bold",
         position: "absolute",
-        right: 15,
-        paddingLeft: 15
+        right: 30,
+        paddingLeft: 15,
+        fontFamily: "DM-Sans-Bold"
     },
     avatar: {
         height: 30,
         width: 30,
         borderRadius: 30 / 2,
-        marginRight: 10
+        marginHorizontal: 10,
+    },
+    imgContainer: {
+        // backgroundColor: "red"
     }
 });
 
