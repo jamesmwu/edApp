@@ -1,11 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import Text from '../components/CustomText';
-import { View, TouchableOpacity, Alert } from 'react-native';
-import { globalStyles, COLORS } from '../styles/global';
+import { View, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { globalStyles, COLORS, URL } from '../styles/global';
 import Leaderboard from "../components/Leaderboard";
+import axios from "axios";
 
 export default function LeaderboardScreen({ navigation }) {
-    const [data, setData] = useState(DATA);
+    const [props, setProps] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    //Gets users
+    async function getUsers() {
+        try {
+            const response = await axios.get(URL + '/users');
+
+            setProps({
+                labelBy: "name",
+                sortBy: "score",
+                data: response.data,
+                icon: "iconUrl",
+                // onRowPress: (item, index) => {
+                //     alert(item.name + " clicked", item.score + " points, wow!");
+                // },
+                evenRowColor: COLORS.secondary,
+            });
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // const [data, setData] = useState(DATA);
 
     const alert = (title, body) => {
         Alert.alert(
@@ -16,36 +45,35 @@ export default function LeaderboardScreen({ navigation }) {
         );
     };
 
-    const props = {
-        labelBy: "name",
-        sortBy: "score",
-        data,
-        icon: "iconUrl",
-        // onRowPress: (item, index) => {
-        //     alert(item.name + " clicked", item.score + " points, wow!");
-        // },
-        evenRowColor: COLORS.secondary,
-    };
-
     return (
-        <View style={{ flex: 1 }}>
-            <View
-                style={{
-                    paddingTop: 50,
-                    backgroundColor: COLORS.accent,
-                    alignItems: "center",
-                }}
-            >
-                <Text style={{ fontSize: 30, color: "white", paddingBottom: 10, fontFamily: "DM-Sans-Bold" }}>
-                    Leaderboard
-                </Text>
-            </View>
+        <Fragment>
+            {isLoading ? <ActivityIndicator size="large" /> :
+                <View style={{ flex: 1 }}>
+                    <View
+                        style={{
+                            paddingTop: 50,
+                            backgroundColor: COLORS.accent,
+                            alignItems: "center",
+                        }}
+                    >
+                        <Text style={{ fontSize: 30, color: "white", paddingBottom: 10, fontFamily: "DM-Sans-Bold" }}>
+                            Leaderboard
+                        </Text>
+                    </View>
 
-            {/* Spread operator to receive properties as separate prop as opposed to single props obj */}
-            <Leaderboard {...props} />
-        </View>
+                    {/* Spread operator to receive properties as separate prop as opposed to single props obj */}
+                    <Leaderboard {...props} />
+                </View>
+            }
+        </Fragment>
+
     );
 }
+
+
+
+
+
 
 const DATA = [
     {

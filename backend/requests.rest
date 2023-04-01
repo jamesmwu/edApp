@@ -55,11 +55,11 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/users/updateScore/64272c6842a15c79211e2588
+PUT http://localhost:3001/users/updateScore/642730d34ba175fb11cabebd
 Content-Type: application/json
 
 {
-	"incrementScore" : 60
+	"incrementScore" : 69
 }
 
 ###
