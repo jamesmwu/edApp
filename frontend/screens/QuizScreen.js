@@ -50,6 +50,16 @@ export default function QuizScreen({ navigation }) {
     const [score, setScore] = useState(0);
     const [showNextButton, setShowNextButton] = useState(false);
     const [showScoreModal, setShowScoreModal] = useState(false);
+    const [showExplanationModal, setExplanationModal] = useState(false);
+
+    const explain = () => {
+        setTimeout(() => {
+            setExplanationModal(true);
+        }, 1000); // Wait for 1 seconds before showing the modal
+        setTimeout(() => {
+            setShowNextButton(true);
+        }, 4000); // Wait for 1 seconds before showing the modal                
+    };
 
     const validateAnswer = (selectedOption) => {
         let correct_option = allQuestions[currentQuestionIndex]['correct_option'];
@@ -60,9 +70,11 @@ export default function QuizScreen({ navigation }) {
             // Update question UI score and user score
             setScore(score + 1);
             incrementScore();
+            setShowNextButton(true);
         }
-        // Show Next Button
-        setShowNextButton(true);
+        else explain();
+
+        //Animate progress bar
         Animated.timing(progress, {
             toValue: currentQuestionIndex + 1,
             duration: 1000,
@@ -193,6 +205,55 @@ export default function QuizScreen({ navigation }) {
                         {/* Next Button */}
                         <QuizNextButton showNextButton={showNextButton} handleNext={handleNext} displayText="Next" />
 
+                        {/* Explanation Modal */}
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={showExplanationModal}
+                        >
+                            <View style={{
+                                flex: 1,
+                                alignItems: "center",
+                                justifyContent: "center"
+                            }}>
+                                <View style={{
+                                    backgroundColor: COLORS.white,
+                                    width: '90%',
+                                    borderRadius: 20,
+                                    borderWidth: 3,
+                                    padding: 20,
+                                    flex: 0.65,
+                                    alignItems: 'center',
+                                    justifyContent: "space-between"
+                                }}>
+                                    <Text style={{
+                                        fontSize: 30, fontFamily: "DM-Sans"
+                                    }}>Damn, you got that one wrong. Tuff.</Text>
+
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'center',
+                                        marginVertical: 20
+                                    }}>
+                                        <Text style={{ fontSize: 20 }}>You got that wrong because explanation explanation we need a detailed description here this is all placeholder text I can't believe Spring quarter is already starting</Text>
+                                    </View>
+                                    {/* Retry Quiz button */}
+                                    <TouchableOpacity
+                                        onPress={() => { setExplanationModal(false); }}
+                                        style={{
+                                            backgroundColor: COLORS.accent,
+                                            padding: 20, width: '100%', borderRadius: 20
+                                        }}>
+                                        <Text style={{
+                                            textAlign: 'center', color: COLORS.white, fontSize: 20, fontFamily: "DM-Sans"
+                                        }}>Got it!</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
+
+
                         {/* Score Modal */}
                         <Modal
                             animationType="slide"
@@ -213,7 +274,7 @@ export default function QuizScreen({ navigation }) {
                                     alignItems: 'center'
                                 }}>
                                     <Text style={{
-                                        fontSize: 30, fontWeight: 'bold', fontFamily: "DM-Sans"
+                                        fontSize: 30, fontFamily: "DM-Sans-Bold"
                                     }}>{score > (allQuestions.length / 2) ? 'Nice job!' : 'Rip'}</Text>
 
                                     <View style={{
