@@ -88,7 +88,7 @@ export default function HomeScreen({ navigation }) {
                                     marginTop: 40,
                                 }}
                             >
-                                <CustomButton label={item.title} onPress={() => { navigation.navigate('Quiz'); }} />
+                                <CustomButton label={item.title} onPress={() => { navigation.navigate('Lesson'); }} />
 
                             </View>
 

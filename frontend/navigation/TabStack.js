@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import QuizScreen from "../screens/QuizScreen";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
+import LessonScreen from "../screens/LessonScreen";
 import { COLORS } from '../styles/global';
 
 function Tabs() {
@@ -76,6 +77,7 @@ export default function TabStack() {
         >
             <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
             <Stack.Screen name="Quiz" component={QuizScreen} />
+            <Stack.Screen name="Lesson" component={LessonScreen} />
         </Stack.Navigator>
     );
 }

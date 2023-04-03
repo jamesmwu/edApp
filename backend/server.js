@@ -150,3 +150,18 @@ app.put('/questions/edit/:_id', async (req, res) => {
 
     res.json(question);
 });
+
+//Updates schema with new "unit" field (internal use)
+app.put('/questions/addUnit', async (req, res) => {
+    const question = await Question.updateMany({}, { $set: { unit: req.body.unit } });
+
+    res.json(question);
+});
+
+//Updates schema with new "lesson" field (internal use)
+app.put('/questions/addLesson', async (req, res) => {
+    const question = await Question.updateMany({}, { $set: { lesson: req.body.lesson } });
+
+    res.json(question);
+});
+

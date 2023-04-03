@@ -13,6 +13,14 @@ const QuestionSchema = new Schema({
         type: String,
         required: true
     },
+    unit: {
+        type: Number,
+        required: true
+    },
+    lesson: {
+        type: Number,
+        required: true
+    },
     question: {
         type: String,
         required: false
