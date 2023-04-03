@@ -130,13 +130,22 @@ app.get('/questions/:_id', async (req, res) => {
     res.json(questions);
 });
 
+//Gets questions by unit and lesson
+app.get('/questions/:unit/:stage', async (req, res) => {
+    const questions = await Question.find({ unit: req.params.unit, lesson: req.params.stage });
+
+    res.json(questions);
+});
+
 //Creates new question
 app.post('/questions/new', async (req, res) => {
     const question = new Question({
         type: req.body.type,
         question: req.body.question,
         options: req.body.options,
-        correct_option: req.body.correct_option
+        correct_option: req.body.correct_option,
+        unit: req.body.unit,
+        lesson: req.body.lesson
     });
 
     await question.save();

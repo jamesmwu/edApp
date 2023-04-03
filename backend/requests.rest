@@ -92,19 +92,23 @@ Content-Type: application/json
 {
 "type": "Match",
 "options": {
-	"left": ["DMSO", "Carboxylic Acid", "Methane"],
-	"right": ["Polar aprotic", "Polar protic", "Nonpolar aprotic"]
+	"left": ["Ooga"],
+	"right": ["Booga"]
 },
 "correct_option": {
-	"DMSO": "Polar aprotic",
-	"Carboxylic Acid": "Polar protic",
-	"Methane": "Nonpolar aprotic"
-}
+	"Ooga": "Booga"
+},
+"unit": 2,
+"lesson": 1
 }
 
 ###
 
 GET http://localhost:3001/questions
+
+###
+
+GET http://localhost:3001/questions/1/2
 
 ###
 
