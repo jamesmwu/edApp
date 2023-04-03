@@ -51,7 +51,7 @@ export default function HomeScreen({ navigation }) {
                                         </Text>
                                     );
                                 }}
-                                renderItem={({ item }) => {
+                                renderItem={({ item, index }) => {
                                     return (
                                         <View
                                             style={{
@@ -59,7 +59,15 @@ export default function HomeScreen({ navigation }) {
                                                 marginTop: 40,
                                             }}
                                         >
-                                            <CustomButton label={item.name} onPress={() => { navigation.navigate('Quiz', { stage: item.stage }); }} />
+                                            <CustomButton
+                                                label={item.name}
+                                                onPress={() => {
+                                                    navigation.navigate('Quiz', {
+                                                        unitStage: item.unitStage,
+                                                        lessonStage: item.lessonStage,
+                                                    });
+                                                }}
+                                            />
 
                                         </View>
 

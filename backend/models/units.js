@@ -6,7 +6,11 @@ const LessonSchema = new Schema({
         type: String,
         required: true
     },
-    stage: {
+    lessonStage: {
+        type: Number,
+        required: true
+    },
+    unitStage: {
         type: Number,
         required: true
     }

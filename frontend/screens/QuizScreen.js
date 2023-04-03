@@ -10,7 +10,8 @@ import QuizNextButton from '../components/QuizNextButton';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
-export default function QuizScreen({ navigation }) {
+export default function QuizScreen({ route, navigation }) {
+    const { unitStage, lessonStage } = route.params;
     const { userInfo } = useContext(AuthContext);
     const [allQuestions, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,7 @@ export default function QuizScreen({ navigation }) {
     //Gets questions
     async function getQuestions() {
         try {
-            const response = await axios.get(URL + '/questions');
+            const response = await axios.get(`${URL}/questions/${unitStage}/${lessonStage}`);
             setQuestions(response.data);
             setIsLoading(false);
         } catch (error) {

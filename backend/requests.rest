@@ -80,9 +80,11 @@ Content-Type: application/json
 
 {
 "type": "MCQ",
-"question": "Sn2 reactions result in an inversion of stereochemistry, meaning that R will switch to S and vice versa.",
-"options": ["The leaving group leaving and forming a carbocation.", "A backside attack which results in the leaving group leaving.", "Deprotonation of a beta carbon.", "Carbocation relocation."],
-"correct_option": "A backside attack which results in the leaving group leaving."
+"question": "Ooga?",
+"options": ["Booga.", "Cooga.", "Dooga."],
+"correct_option": "Bogoa.",
+"unit": 1,
+"lesson": 2
 }
 
 ###
@@ -120,14 +122,20 @@ DELETE http://localhost:3001/questions/delete/6424f0565f8c0c6302707014
 
 ###
 
-PUT http://localhost:3001/questions/edit/6424ef2f1f239e997825dbfc
+PUT http://localhost:3001/questions/edit/642b2a9d635c59db9eec1327
 Content-Type: application/json
 
 {
-"type": "multiple_choice",
-"question": "What is the capital of France?",
-"options": ["Ooga", "Booga"],
-"correct_option": "Ooga"
+	  "type": "MCQ",
+  "unit": 1,
+  "lesson": 2,
+  "question": "Ooga?",
+  "options": [
+    "Booga.",
+    "Cooga.",
+    "Dooga."
+  ],
+"correct_option": "Booga."
 }
 
 ###
@@ -158,11 +166,13 @@ Content-Type: application/json
 	"lessons": [
 		{
 			"name": "Lesson 1: What are Sn2 Reactions?",
-			"stage": 1
+			"lessonStage": 1,
+			"unitStage": 1
 		},
 		{
 			"name": "Lesson 2: What changes the speed of Sn2 Reactions?",
-			"stage": 2
+			"lessonStage": 2,
+			"unitStage": 1
 		}
 	],
 	"stage": 1
@@ -175,4 +185,4 @@ GET http://localhost:3001/units
 
 ###
 
-DELETE http://localhost:3001/units/delete/642a68dd7c2cac5e2f5ffae7
+DELETE http://localhost:3001/units/delete/642a6cc607a167f55d03841e
