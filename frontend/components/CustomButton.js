@@ -20,6 +20,7 @@ export default function CustomButton({ label, onPress }) {
                     fontWeight: '700',
                     fontSize: 16,
                     color: COLORS.black,
+                    width: 250,
                 }}>
                 {label}
             </Text>

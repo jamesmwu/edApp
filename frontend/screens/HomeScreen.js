@@ -1,103 +1,76 @@
-import { View, SafeAreaView } from 'react-native';
-import { COLORS, globalStyles } from '../styles/global';
+import React, { useEffect, useState } from 'react';
+import { View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { COLORS, globalStyles, URL } from '../styles/global';
 import Text from '../components/CustomText';
 import CustomButton from '../components/CustomButton';
 import StickyHeaderFlatlist from "react-native-sticky-header-flatlist";
 import { Fragment } from 'react';
+import axios from 'axios';
 
-const DATA = [
-    {
-        title: "Unit 1",
-        lessons: [
-            { title: "bruh" },
-            { title: "chicken" }
-        ]
-    },
-    {
-        title: "Unit 2",
-        lessons: [
-            { title: "lol" },
-            { title: "that's a rip" }
-        ]
-    },
-    {
-        title: "Unit 3",
-        lessons: [
-            { title: "ooga" },
-            { title: "booga" }
-        ]
-    },
-    {
-        title: "Unit 4",
-        lessons: [
-            { title: "ooga" },
-            { title: "booga" }
-        ]
-    },
-    {
-        title: "Unit 5",
-        lessons: [
-            { title: "ooga" },
-            { title: "booga" }
-        ]
-    },
-    {
-        title: "Unit 6",
-        lessons: [
-            { title: "ooga" },
-            { title: "booga" }
-        ]
-    },
-    {
-        title: "Unit 7",
-        lessons: [
-            { title: "ooga" },
-            { title: "booga" }
-        ]
-    },
-
-];
 
 export default function HomeScreen({ navigation }) {
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getUnits();
+    }, []);
+
+    //Gets units
+    async function getUnits() {
+        try {
+            const response = await axios.get(URL + '/units');
+            setData(response.data);
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <Fragment>
-            <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.accent }} />
-            <SafeAreaView style={globalStyles.container}>
+            {
+                isLoading ? (<ActivityIndicator size="large" />) :
+                    <Fragment>
+                        <SafeAreaView style={{ flex: 0, backgroundColor: COLORS.accent }} />
+                        <SafeAreaView style={globalStyles.container}>
 
-                <StickyHeaderFlatlist
-                    keyExtractor={(_, i) => i + ""}
-                    childrenKey={"lessons"}
-                    renderHeader={({ item }) => {
-                        return (
-                            <Text style={{
-                                padding: 20,
-                                backgroundColor: COLORS.accent,
-                                textAlign: "center",
-                                color: COLORS.white,
-                                fontWeight: "bold"
-                            }}>
-                                {item.title}
-                            </Text>
-                        );
-                    }}
-                    renderItem={({ item }) => {
-                        return (
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: 40,
+                            <StickyHeaderFlatlist
+                                keyExtractor={(_, i) => i + ""}
+                                childrenKey={"lessons"}
+                                renderHeader={({ item }) => {
+                                    return (
+                                        <Text style={{
+                                            padding: 20,
+                                            backgroundColor: COLORS.accent,
+                                            textAlign: "center",
+                                            color: COLORS.white,
+                                            fontWeight: "bold"
+                                        }}>
+                                            {item.title}
+                                        </Text>
+                                    );
                                 }}
-                            >
-                                <CustomButton label={item.title} onPress={() => { navigation.navigate('Lesson'); }} />
+                                renderItem={({ item }) => {
+                                    return (
+                                        <View
+                                            style={{
+                                                alignItems: "center",
+                                                marginTop: 40,
+                                            }}
+                                        >
+                                            <CustomButton label={item.name} onPress={() => { navigation.navigate('Lesson', { stage: item.stage }); }} />
 
-                            </View>
+                                        </View>
 
-                        );
-                    }}
-                    data={DATA}
-                    style={{ width: "100%" }}
-                />
-            </SafeAreaView>
+                                    );
+                                }}
+                                data={data}
+                                style={{ width: "100%" }}
+                            />
+                        </SafeAreaView>
+                    </Fragment>
+            }
         </Fragment>
 
     );

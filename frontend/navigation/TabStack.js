@@ -66,17 +66,23 @@ export default function TabStack() {
         },
     };
 
+    const screenOptions = {
+        headerShown: false,
+        cardStyle: { backgroundColor: 'transparent' },
+        cardOverlayEnabled: true,
+    };
+
+    const quizScreenOptions = {
+        ...screenOptions,
+        ...slideDownTransition,
+    };
+
     return (
         <Stack.Navigator
-            screenOptions={{
-                headerShown: false,
-                cardStyle: { backgroundColor: 'transparent' },
-                cardOverlayEnabled: true,
-                ...slideDownTransition,
-            }}
+            screenOptions={screenOptions}
         >
             <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-            <Stack.Screen name="Quiz" component={QuizScreen} />
+            <Stack.Screen name="Quiz" component={QuizScreen} options={quizScreenOptions} />
             <Stack.Screen name="Lesson" component={LessonScreen} />
         </Stack.Navigator>
     );

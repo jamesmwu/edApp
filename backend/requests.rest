@@ -125,3 +125,50 @@ Content-Type: application/json
 "options": ["Ooga", "Booga"],
 "correct_option": "Ooga"
 }
+
+###
+# Updates all questions in the database to have unit 1
+PUT http://localhost:3001/questions/addUnit
+Content-Type: application/json
+
+{
+	"unit": 1
+}
+
+###
+# Updates all questions in the database to have lesson 1
+PUT http://localhost:3001/questions/addLesson
+Content-Type: application/json
+
+{
+	"lesson": 1
+}
+
+###
+
+POST http://localhost:3001/units/new
+Content-Type: application/json
+
+{
+	"title": "Unit 1: Mechanisms",
+	"lessons": [
+		{
+			"name": "Lesson 1: What are Sn2 Reactions?",
+			"stage": 1
+		},
+		{
+			"name": "Lesson 2: What changes the speed of Sn2 Reactions?",
+			"stage": 2
+		}
+	],
+	"stage": 1
+}
+
+
+###
+
+GET http://localhost:3001/units
+
+###
+
+DELETE http://localhost:3001/units/delete/642a68dd7c2cac5e2f5ffae7

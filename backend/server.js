@@ -25,20 +25,25 @@ app.listen(3001, () => console.log('Server listening on port 3001'));
 
 const User = require('./models/users');
 const Question = require('./models/questions');
+const Unit = require('./models/units');
+
 
 //Users endpoints
+//Gets all users
 app.get('/users', async (req, res) => {
     const users = await User.find();
 
     res.json(users);
 });
 
+//Gets users by ID
 app.get('/users/:_id', async (req, res) => {
     const users = await User.findById(req.params._id);
 
     res.json(users);
 });
 
+//Logs users in by username and password
 app.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
@@ -59,6 +64,7 @@ app.post('/login', async (req, res) => {
     );
 });
 
+//Creates new user
 app.post('/users/new', async (req, res) => {
     const dupUser = await User.findOne({ username: req.body.username });
     if (dupUser) {
@@ -78,12 +84,14 @@ app.post('/users/new', async (req, res) => {
     res.json(user);
 });
 
+//Deletes user by ID
 app.delete('/users/delete/:_id', async (req, res) => {
     const result = await User.findByIdAndDelete(req.params._id);
 
     res.json(result);
 });
 
+//Edits user by ID
 app.put('/users/edit/:_id', async (req, res) => {
     const user = await User.findById(req.params._id);
 
@@ -95,6 +103,7 @@ app.put('/users/edit/:_id', async (req, res) => {
     res.json(user);
 });
 
+//Updates score by ID
 app.put('/users/updateScore/:_id', async (req, res) => {
     const user = await User.findById(req.params._id);
 
@@ -107,18 +116,21 @@ app.put('/users/updateScore/:_id', async (req, res) => {
 
 
 //Questions endpoints
+//Gets all questions
 app.get('/questions', async (req, res) => {
     const questions = await Question.find();
 
     res.json(questions);
 });
 
+//Gets questions by ID
 app.get('/questions/:_id', async (req, res) => {
     const questions = await Question.findById(req.params._id);
 
     res.json(questions);
 });
 
+//Creates new question
 app.post('/questions/new', async (req, res) => {
     const question = new Question({
         type: req.body.type,
@@ -132,12 +144,14 @@ app.post('/questions/new', async (req, res) => {
     res.json(question);
 });
 
+//Deletes question by ID
 app.delete('/questions/delete/:_id', async (req, res) => {
     const result = await Question.findByIdAndDelete(req.params._id);
 
     res.json(result);
 });
 
+//Edits question by ID
 app.put('/questions/edit/:_id', async (req, res) => {
     const question = await Question.findById(req.params._id);
 
@@ -165,3 +179,49 @@ app.put('/questions/addLesson', async (req, res) => {
     res.json(question);
 });
 
+
+
+//Units endpoints
+// Create a new unit
+app.post('/units/new', async (req, res) => {
+    const unit = new Unit({
+        title: req.body.title,
+        lessons: req.body.lessons,
+        stage: req.body.stage
+    });
+
+    await unit.save();
+
+    res.json(unit);
+});
+
+// Get all units
+app.get('/units', async (req, res) => {
+    const units = await Unit.find();
+
+    res.json(units);
+});
+
+// Get a unit by ID
+app.get('/units/:_id', async (req, res) => {
+    const unit = await Unit.findById(req.params._id);
+
+    res.json(unit);
+});
+
+// Update a unit by ID
+app.put('/units/edit/:_id', async (req, res) => {
+    const unit = await Unit.findByIdAndUpdate(req.params._id, {
+        title: req.body.title,
+        lessons: req.body.lessons,
+    }, { new: true });
+
+    res.json(unit);
+});
+
+// Delete a unit by ID
+app.delete('/units/delete/:_id', async (req, res) => {
+    const result = await Unit.findByIdAndDelete(req.params._id);
+
+    res.json(result);
+});
