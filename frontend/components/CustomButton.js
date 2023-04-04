@@ -12,6 +12,7 @@ export default function CustomButton({ label, onPress }) {
                 padding: 20,
                 borderRadius: 10,
                 marginBottom: 30,
+                alignItems: "center"
             }}>
             <Text
                 style={{

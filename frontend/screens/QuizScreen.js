@@ -7,6 +7,7 @@ import RenderMCQ from '../components/RenderMCQ';
 import RenderMatch from '../components/RenderMatch';
 import RenderTF from '../components/RenderTF';
 import QuizNextButton from '../components/QuizNextButton';
+import QuizExplanationButton from '../components/QuizExplanationButton';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
@@ -56,10 +57,12 @@ export default function QuizScreen({ route, navigation }) {
     const explain = () => {
         setTimeout(() => {
             setExplanationModal(true);
-        }, 1000); // Wait for 1 seconds before showing the modal
-        setTimeout(() => {
-            setShowNextButton(true);
-        }, 4000); // Wait for 1 seconds before showing the modal                
+        }, 1000); // Wait for 1 seconds before showing the modal            
+    };
+
+    const explainClose = () => {
+        setExplanationModal(false);
+        setShowNextButton(true);
     };
 
     const validateAnswer = (selectedOption) => {
@@ -204,7 +207,10 @@ export default function QuizScreen({ route, navigation }) {
                         </View>
 
                         {/* Next Button */}
-                        <QuizNextButton showNextButton={showNextButton} handleNext={handleNext} displayText="Next" />
+                        <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
+                            <QuizExplanationButton showExplanationButton={showNextButton} handleExplain={() => { setExplanationModal(true); }} displayText="Explanation" />
+                            <QuizNextButton showNextButton={showNextButton} handleNext={handleNext} displayText="Next" />
+                        </View>
 
                         {/* Explanation Modal */}
                         <Modal
@@ -229,7 +235,7 @@ export default function QuizScreen({ route, navigation }) {
                                 }}>
                                     <Text style={{
                                         fontSize: 30, fontFamily: "DM-Sans"
-                                    }}>Damn, you got that one wrong. Tuff.</Text>
+                                    }}>Explanation!</Text>
 
                                     <View style={{
                                         flexDirection: 'row',
@@ -239,9 +245,9 @@ export default function QuizScreen({ route, navigation }) {
                                     }}>
                                         <Text style={{ fontSize: 20 }}>You got that wrong because explanation explanation we need a detailed description here this is all placeholder text I can't believe Spring quarter is already starting</Text>
                                     </View>
-                                    {/* Retry Quiz button */}
+                                    {/* Close explanation button */}
                                     <TouchableOpacity
-                                        onPress={() => { setExplanationModal(false); }}
+                                        onPress={() => { explainClose(); }}
                                         style={{
                                             backgroundColor: COLORS.accent,
                                             padding: 20, width: '100%', borderRadius: 20
