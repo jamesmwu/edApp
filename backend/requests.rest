@@ -80,11 +80,12 @@ Content-Type: application/json
 
 {
 "type": "MCQ",
-"question": "Ooga?",
-"options": ["Booga.", "Cooga.", "Dooga."],
-"correct_option": "Bogoa.",
+"question": "Which of the following is the reason for the activation energy barrier for Sn2 reactions?",
+"options": ["You have to break bonds during the transition state.", "You have to orient molecules during the transition state.", "You have to form bonds during the transition state.", "Both the first two options."],
+"correct_option": "Both the first two options.",
 "unit": 1,
-"lesson": 2
+"lesson": 1,
+"explanation": "The activation energy comes from the need to break bonds and also because molecules need to orient themselves so that a nucleophile can attack a carbon 180 degrees from the halogen (backside attack). Molecules naturally go towards more entropy. When the molecules orient, there is less entropy, meaning energy is required."
 }
 
 ###
@@ -110,11 +111,11 @@ GET http://localhost:3001/questions
 
 ###
 
-GET http://localhost:3001/questions/1/2
+GET http://localhost:3001/questions/1/1
 
 ###
 
-GET http://localhost:3001/questions/6424ef2f1f239e997825dbfc
+GET http://localhost:3001/questions/642c9e909ff89f18709b1a3c
 
 ###
 

@@ -145,7 +145,8 @@ app.post('/questions/new', async (req, res) => {
         options: req.body.options,
         correct_option: req.body.correct_option,
         unit: req.body.unit,
-        lesson: req.body.lesson
+        lesson: req.body.lesson,
+        explanation: req.body.explanation
     });
 
     await question.save();

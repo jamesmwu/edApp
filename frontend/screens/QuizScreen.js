@@ -26,7 +26,18 @@ export default function QuizScreen({ route, navigation }) {
         try {
             const response = await axios.get(`${URL}/questions/${unitStage}/${lessonStage}`);
             setQuestions(response.data);
+            getExplanation(response.data[currentQuestionIndex]._id); //Set initial explanation
             setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    //Gets explanations
+    async function getExplanation(id) {
+        try {
+            const response = await axios.get(`${URL}/questions/${id}`);
+            setExplanation(response.data.explanation);
         } catch (error) {
             console.error(error);
         }
@@ -53,6 +64,7 @@ export default function QuizScreen({ route, navigation }) {
     const [showNextButton, setShowNextButton] = useState(false);
     const [showScoreModal, setShowScoreModal] = useState(false);
     const [showExplanationModal, setExplanationModal] = useState(false);
+    const [explanation, setExplanation] = useState('');
 
     const explain = () => {
         setTimeout(() => {
@@ -129,6 +141,7 @@ export default function QuizScreen({ route, navigation }) {
             setShowScoreModal(true);
         } else {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
+            getExplanation(allQuestions[currentQuestionIndex + 1]._id);
             setCurrentOptionSelected(null);
             setCorrectOption(null);
             setCorrectMatchOption(null);
@@ -243,7 +256,7 @@ export default function QuizScreen({ route, navigation }) {
                                         alignItems: 'center',
                                         marginVertical: 20
                                     }}>
-                                        <Text style={{ fontSize: 20 }}>You got that wrong because explanation explanation we need a detailed description here this is all placeholder text I can't believe Spring quarter is already starting</Text>
+                                        <Text style={{ fontSize: 20 }}>{explanation}</Text>
                                     </View>
                                     {/* Close explanation button */}
                                     <TouchableOpacity

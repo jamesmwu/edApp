@@ -56,6 +56,10 @@ const QuestionSchema = new Schema({
             },
             message: props => `${props.path} must be a string or an object`
         }
+    },
+    explanation: {
+        type: String,
+        required: true
     }
 });
 
