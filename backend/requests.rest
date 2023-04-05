@@ -89,6 +89,21 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:3001/questions/new
+Content-Type: application/json
+
+{
+"type": "TF",
+"question": "Sn2 reactions result in an inversion of stereochemistry, meaning that R will switch to S and vice versa.",
+"correct_option": "False",
+"unit": 1,
+"lesson": 1,
+"explanation": "An inversion of stereochemistry doesn’t necessarily mean a change in absolute configuration because it depends on the molecule getting added (it might be heavier or lighter compared to the other molecules on the tetravalent carbon)."
+}
+
+###
+
 POST http://localhost:3001/questions/new
 Content-Type: application/json
 
@@ -107,6 +122,22 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:3001/questions/new
+Content-Type: application/json
+
+{
+"type": "imgMCQ",
+"question": "Predict the product for the following reaction.",
+"questionImg": "U1L1Q3QI",
+"options": ["U1L1Q3O1", "U1L1Q3O2", "U1L1Q3O3", "U1L1Q3O4"],
+"correct_option": "U1L1Q3O1",
+"unit": 1,
+"lesson": 1,
+"explanation": "Cyanide is a good nucleophile, and it will attack the carbon attached to the Br from the back and kick off the Br in the process."
+}
+
+###
+
 GET http://localhost:3001/questions
 
 ###
@@ -119,7 +150,7 @@ GET http://localhost:3001/questions/642c9e909ff89f18709b1a3c
 
 ###
 
-DELETE http://localhost:3001/questions/delete/6424f0565f8c0c6302707014
+DELETE http://localhost:3001/questions/delete/642db0dcac40d8715af27d0e
 
 ###
 

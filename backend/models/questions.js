@@ -25,6 +25,10 @@ const QuestionSchema = new Schema({
         type: String,
         required: false
     },
+    questionImg: {
+        type: String,
+        required: false
+    },
     options: {
         type: Schema.Types.Mixed,
         required: false,

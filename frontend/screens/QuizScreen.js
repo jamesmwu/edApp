@@ -4,6 +4,7 @@ import { COLORS, URL } from '../styles/global';
 import RenderQuestion from '../components/RenderQuestion';
 import RenderProgressBar from '../components/RenderProgressBar';
 import RenderMCQ from '../components/RenderMCQ';
+import RenderImgMCQ from '../components/RenderImgMCQ';
 import RenderMatch from '../components/RenderMatch';
 import RenderTF from '../components/RenderTF';
 import QuizNextButton from '../components/QuizNextButton';
@@ -178,6 +179,9 @@ export default function QuizScreen({ route, navigation }) {
         }
         else if (allQuestions[currentQuestionIndex]?.type === "TF") {
             return (<RenderTF validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
+        }
+        else if (allQuestions[currentQuestionIndex]?.type === "imgMCQ") {
+            return (<RenderImgMCQ allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} validateAnswer={validateAnswer} isOptionsDisabled={isOptionsDisabled} currentOptionSelected={currentOptionSelected} correctOption={correctOption} />);
         }
         else {
             console.log("Error reading options: question type not recognized.");

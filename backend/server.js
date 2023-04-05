@@ -142,6 +142,7 @@ app.post('/questions/new', async (req, res) => {
     const question = new Question({
         type: req.body.type,
         question: req.body.question,
+        questionImg: req.body.questionImg,
         options: req.body.options,
         correct_option: req.body.correct_option,
         unit: req.body.unit,

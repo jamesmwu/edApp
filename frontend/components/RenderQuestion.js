@@ -1,11 +1,17 @@
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { COLORS } from '../styles/global';
+
+const imageMap = {
+    'U1L1Q3QI': require('../assets/images/U1L1Q3QI.png'),
+    // add more images here as needed
+};
+
 
 export default function RenderQuestion({ currentQuestionIndex, allQuestions }) {
 
     return (
         <View style={{
-            marginVertical: 20
+            marginVertical: 20,
         }}>
             {/* Question Counter */}
             <View style={{
@@ -26,6 +32,22 @@ export default function RenderQuestion({ currentQuestionIndex, allQuestions }) {
                 fontSize: 30,
                 fontFamily: "DM-Sans"
             }}>{allQuestions[currentQuestionIndex]?.question}</Text>
+            {allQuestions[currentQuestionIndex]?.questionImg ?
+                <Image
+                    style={{
+                        width: 350,
+                        height: 110,
+                        resizeMode: 'contain',
+                        borderRadius: 20,
+                        borderWidth: 3,
+                        borderColor: COLORS.black,
+                        marginTop: 20,
+                        backgroundColor: COLORS.white,
+                    }}
+                    source={imageMap[allQuestions[currentQuestionIndex]?.questionImg]}
+                />
+                : null}
+
         </View>
     );
 };
