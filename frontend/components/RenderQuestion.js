@@ -1,10 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { COLORS } from '../styles/global';
-
-const imageMap = {
-    'U1L1Q3QI': require('../assets/images/U1L1Q3QI.png'),
-    // add more images here as needed
-};
+import { COLORS, imageMap } from '../styles/global';
 
 
 export default function RenderQuestion({ currentQuestionIndex, allQuestions }) {

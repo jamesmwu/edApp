@@ -1,14 +1,5 @@
 import { View, Image, TouchableOpacity } from 'react-native';
-import { COLORS } from '../styles/global';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-const imageMap = {
-    'U1L1Q3O1': require('../assets/images/U1L1Q3O1.png'),
-    'U1L1Q3O2': require('../assets/images/U1L1Q3O2.png'),
-    'U1L1Q3O3': require('../assets/images/U1L1Q3O3.png'),
-    'U1L1Q3O4': require('../assets/images/U1L1Q3O4.png'),
-    // add more images here as needed
-};
+import { COLORS, imageMap } from '../styles/global';
 
 export default function RenderMCQ({ allQuestions, currentQuestionIndex, validateAnswer, isOptionsDisabled, currentOptionSelected, correctOption }) {
     return (
@@ -42,9 +33,7 @@ export default function RenderMCQ({ allQuestions, currentQuestionIndex, validate
                                 marginVertical: 10,
                             }}
                         >
-                            {/* <Text style={{
-                            fontSize: 20, color: COLORS.black, fontFamily: "DM-Sans", maxWidth: 270, flexWrap: "wrap"
-                        }}>{option}</Text> */}
+
                             <Image
                                 style={{
                                     width: 120,

@@ -127,13 +127,13 @@ Content-Type: application/json
 
 {
 "type": "imgMCQ",
-"question": "Predict the product for the following reaction.",
-"questionImg": "U1L1Q3QI",
-"options": ["U1L1Q3O1", "U1L1Q3O2", "U1L1Q3O3", "U1L1Q3O4"],
-"correct_option": "U1L1Q3O1",
+"question": "What will be the product of the following reaction?",
+"questionImg": "U1L1Q5QI",
+"options": ["U1L1Q5O1", "U1L1Q5O2", "U1L1Q5O3", "U1L1Q5O4"],
+"correct_option": "U1L1Q5O1",
 "unit": 1,
 "lesson": 1,
-"explanation": "Cyanide is a good nucleophile, and it will attack the carbon attached to the Br from the back and kick off the Br in the process."
+"explanation": "In an Sn2 reaction a backside attack is happening, so because Br is on a wedge, the CN will attack from the back and be added on a dash."
 }
 
 ###

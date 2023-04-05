@@ -4,6 +4,20 @@ const { width, height } = Dimensions.get('window');
 
 export const URL = 'http://localhost:3001';
 
+export const imageMap = {
+    'U1L1Q3QI': require('../assets/images/U1L1Q3QI.png'),
+    'U1L1Q5QI': require('../assets/images/U1L1Q5QI.png'),
+    'U1L1Q3O1': require('../assets/images/U1L1Q3O1.png'),
+    'U1L1Q3O2': require('../assets/images/U1L1Q3O2.png'),
+    'U1L1Q3O3': require('../assets/images/U1L1Q3O3.png'),
+    'U1L1Q3O4': require('../assets/images/U1L1Q3O4.png'),
+    'U1L1Q5O1': require('../assets/images/U1L1Q5O1.png'),
+    'U1L1Q5O2': require('../assets/images/U1L1Q5O2.png'),
+    'U1L1Q5O3': require('../assets/images/U1L1Q5O3.png'),
+    'U1L1Q5O4': require('../assets/images/U1L1Q5O4.png'),
+    // add more images here as needed
+    // add more images here as needed
+};
 
 export const SIZES = {
     base: 10,
