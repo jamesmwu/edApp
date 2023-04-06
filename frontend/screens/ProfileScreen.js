@@ -5,7 +5,7 @@ import CustomButton from '../components/CustomButton';
 import Text from '../components/CustomText';
 import { globalStyles } from '../styles/global';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
     const { userInfo, logout } = useContext(AuthContext);
     // console.log(userInfo);
     return (
@@ -16,7 +16,7 @@ export default function ProfileScreen() {
             </View>
             <Text style={globalStyles.headerText}>Your Score: {userInfo.score}</Text>
             <View>
-                <CustomButton label='Edit Profile' onPress={() => { console.log("Edit Profile Button pressed"); }} />
+                <CustomButton label='Edit Profile' onPress={() => { navigation.navigate("Edit"); }} />
                 <CustomButton label='Sign Out' onPress={() => { logout(); }} />
             </View>
 

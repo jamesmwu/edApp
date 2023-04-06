@@ -65,6 +65,12 @@ export const globalStyles = StyleSheet.create({
         justifyContent: "space-between",
         // backgroundColor: "red"
     },
+    editProfileContainer: {
+        flex: 1,
+        marginVertical: 60,
+        marginHorizontal: 40,
+        justifyContent: 'center',
+    },
     text: {
         fontFamily: 'DM-Sans'
     },
